@@ -465,7 +465,7 @@ export default function Portfolio() {
                       </div>
                       <div>
                         <p className="text-slate-300 font-semibold">Location</p>
-                        <p className="text-slate-400">Indianapolis, IN</p>
+                        <p className="text-slate-400">Sparks, NV</p>
                       </div>
                     </div>
                   </div>

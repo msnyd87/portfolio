@@ -42,7 +42,7 @@ A responsive freelance developer portfolio website built with React/TypeScript a
 - **Contact Details Updated**: 
   - Email: msnyd87@gmail.com
   - Phone: +1 (323) 844-3638
-  - Location: Indianapolis, IN
+  - Location: Sparks, NV
 - **Social Links Updated**: Added real GitHub, LinkedIn, GitLab profiles
 - **Tech Stack Colors**: Added support for Django, Pandas, Excel, Data Processing, SQLite, HTML
 - **SEO Updates**: Updated page title and meta description for Matt Snyder
