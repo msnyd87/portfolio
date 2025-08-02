@@ -195,7 +195,7 @@ export default function Portfolio() {
       <nav className="fixed top-0 w-full bg-slate-900/80 backdrop-blur-md border-b border-slate-800 z-50">
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            <div className="text-xl font-bold text-blue-400">AC</div>
+            <div className="text-xl font-bold text-blue-400">MS</div>
             <div className="hidden md:flex space-x-8">
               <button
                 onClick={() => scrollToSection("hero")}
