@@ -26,16 +26,29 @@ A responsive freelance developer portfolio website built with React/TypeScript a
 
 ## User Preferences
 - Prefers simple, everyday language explanations
-- Wants to customize portfolio with real projects and personal information
-- Looking for guidance on updating content areas
+- Wants to showcase real projects and professional experience
+- Values clean, professional portfolio presentation
 
-## Recent Changes
-- Created complete portfolio website with sample content
-- Implemented contact form with backend integration
-- Added responsive design with mobile navigation
-- Set up proper project structure following fullstack_js guidelines
+## Recent Changes (August 2, 2025)
+- **Personal Information Updated**: Changed from Alex Chen to Matt Snyder with title "Dynamic Full-Stack Engineer"
+- **Bio Updated**: Added Matt's professional summary emphasizing Python, JavaScript, React, Django expertise
+- **Real Projects Added**: Replaced 6 sample projects with Matt's actual GitHub repositories:
+  1. Halfway - MBTI Dating App (React, FastAPI, PostgreSQL)
+  2. WTO Alert Filter (Python automation tool)
+  3. CarCar - Auto Management System (React, Django, Docker)
+  4. Task Management System (Django, Python)
+  5. Scrumptious Recipes (Django recipe app)
+  6. Conference Management System (Django, React)
+- **Contact Details Updated**: 
+  - Email: msnyd87@gmail.com
+  - Phone: +1 (323) 844-3638
+  - Location: Indianapolis, IN
+- **Social Links Updated**: Added real GitHub, LinkedIn, GitLab profiles
+- **Tech Stack Colors**: Added support for Django, Pandas, Excel, Data Processing, SQLite, HTML
+- **SEO Updates**: Updated page title and meta description for Matt Snyder
 
-## Next Steps
-- Help user replace sample content with their actual projects
-- Guide through customizing personal information
-- Assist with updating hero section and contact details
+## Architecture Notes
+- All projects link to Matt's actual GitHub repositories
+- Portfolio URL links point to matthewsnyder263.github.io
+- Contact form backend remains functional for potential client inquiries
+- Maintained responsive design and animations
