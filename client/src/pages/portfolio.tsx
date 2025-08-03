@@ -30,6 +30,7 @@ import {
   ExternalLink,
   ChevronDown,
 } from "lucide-react";
+import profilePhoto from "@assets/linkedinphoto_1754259422656.jpeg";
 
 interface Project {
   id: number;
@@ -267,7 +268,7 @@ export default function Portfolio() {
             <div className="mb-8">
               <div className="w-32 h-32 mx-auto mb-8 rounded-full overflow-hidden border-4 border-blue-400/30">
                 <img
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&h=256"
+                  src={profilePhoto}
                   alt="Matt Snyder - Developer Profile"
                   className="w-full h-full object-cover"
                 />
