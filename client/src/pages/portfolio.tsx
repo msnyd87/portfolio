@@ -160,14 +160,14 @@ export default function Portfolio() {
 
   const contactMutation = useMutation({
     mutationFn: async (data: InsertContactMessage) => {
-      // Use FormSubmit.co - simple and reliable
+      // Use FormSubmit.co with proper configuration
       const formData = new FormData();
       formData.append('name', data.name);
       formData.append('email', data.email);
       formData.append('message', data.message);
       formData.append('_subject', `Portfolio Contact from ${data.name}`);
       formData.append('_captcha', 'false');
-      formData.append('_template', 'table');
+      formData.append('_next', window.location.origin); // Return to portfolio after submission
 
       const response = await fetch('https://formsubmit.co/msnyd87@gmail.com', {
         method: 'POST',
