@@ -1,5 +1,3 @@
-import nodemailer from 'nodemailer';
-
 interface EmailOptions {
   to: string;
   subject: string;
@@ -9,38 +7,90 @@ interface EmailOptions {
 
 export async function sendEmail(options: EmailOptions): Promise<boolean> {
   try {
-    // Create transporter using environment variables or default SMTP settings
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: process.env.SMTP_USER || 'your-email@gmail.com',
-        pass: process.env.SMTP_PASS || 'your-app-password'
-      }
-    });
-
-    // If no SMTP credentials are provided, just log the message and return true
-    // This allows the form to work even without email setup
-    if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
-      console.log('📧 Email would be sent to:', options.to);
-      console.log('📧 Subject:', options.subject);
-      console.log('📧 Message:', options.text);
-      console.log('💡 To enable actual email sending, set SMTP_USER and SMTP_PASS environment variables');
-      return true;
+    // Check for Resend API key first (easiest option)
+    if (process.env.RESEND_API_KEY) {
+      return await sendWithResend(options);
+    }
+    
+    // Fallback to Mailgun if available
+    if (process.env.MAILGUN_API_KEY && process.env.MAILGUN_DOMAIN) {
+      return await sendWithMailgun(options);
     }
 
-    const mailOptions = {
-      from: process.env.SMTP_USER,
-      to: options.to,
-      subject: options.subject,
-      text: options.text,
-      html: options.html || options.text
-    };
-
-    await transporter.sendMail(mailOptions);
-    console.log('✅ Email sent successfully to:', options.to);
+    // If no API keys are provided, just log the message
+    console.log('📧 Email would be sent to:', options.to);
+    console.log('📧 Subject:', options.subject);
+    console.log('📧 Message:', options.text);
+    console.log('💡 To enable actual email sending:');
+    console.log('   - For Resend: Set RESEND_API_KEY (easiest - get free key at resend.com)');
+    console.log('   - For Mailgun: Set MAILGUN_API_KEY and MAILGUN_DOMAIN');
     return true;
   } catch (error) {
     console.error('❌ Failed to send email:', error);
+    return false;
+  }
+}
+
+async function sendWithResend(options: EmailOptions): Promise<boolean> {
+  try {
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        from: 'Portfolio Contact <onboarding@resend.dev>', // Resend's default from address
+        to: options.to,
+        subject: options.subject,
+        text: options.text,
+        html: options.html || options.text
+      })
+    });
+
+    if (response.ok) {
+      console.log('✅ Email sent successfully via Resend to:', options.to);
+      return true;
+    } else {
+      const error = await response.text();
+      console.error('❌ Resend API error:', error);
+      return false;
+    }
+  } catch (error) {
+    console.error('❌ Resend sending failed:', error);
+    return false;
+  }
+}
+
+async function sendWithMailgun(options: EmailOptions): Promise<boolean> {
+  try {
+    const formData = new FormData();
+    formData.append('from', `Portfolio Contact <mailgun@${process.env.MAILGUN_DOMAIN}>`);
+    formData.append('to', options.to);
+    formData.append('subject', options.subject);
+    formData.append('text', options.text);
+    if (options.html) {
+      formData.append('html', options.html);
+    }
+
+    const response = await fetch(`https://api.mailgun.net/v3/${process.env.MAILGUN_DOMAIN}/messages`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Basic ${Buffer.from(`api:${process.env.MAILGUN_API_KEY}`).toString('base64')}`
+      },
+      body: formData
+    });
+
+    if (response.ok) {
+      console.log('✅ Email sent successfully via Mailgun to:', options.to);
+      return true;
+    } else {
+      const error = await response.text();
+      console.error('❌ Mailgun API error:', error);
+      return false;
+    }
+  } catch (error) {
+    console.error('❌ Mailgun sending failed:', error);
     return false;
   }
 }
