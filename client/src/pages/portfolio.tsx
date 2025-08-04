@@ -160,25 +160,54 @@ export default function Portfolio() {
 
   const contactMutation = useMutation({
     mutationFn: async (data: InsertContactMessage) => {
-      // Use FormSubmit.co - confirmed working (emails may be delayed)
-      const formData = new FormData();
-      formData.append('name', data.name);
-      formData.append('email', data.email);
-      formData.append('message', data.message);
-      formData.append('_subject', `Portfolio Contact from ${data.name}`);
-      formData.append('_captcha', 'false');
-      formData.append('_next', window.location.origin);
+      // Try FormSubmit.co first, fallback to hidden form submission for CORS issues
+      try {
+        const formData = new FormData();
+        formData.append('name', data.name);
+        formData.append('email', data.email);
+        formData.append('message', data.message);
+        formData.append('_subject', `Portfolio Contact from ${data.name}`);
+        formData.append('_captcha', 'false');
+        formData.append('_next', window.location.origin);
 
-      const response = await fetch('https://formsubmit.co/msnyd87@gmail.com', {
-        method: 'POST',
-        body: formData
-      });
+        const response = await fetch('https://formsubmit.co/msnyd87@gmail.com', {
+          method: 'POST',
+          body: formData
+        });
 
-      if (!response.ok) {
-        throw new Error('Failed to send message');
+        if (response.ok) {
+          return { success: true, message: "Message sent successfully! (Email may take a few minutes to arrive)" };
+        }
+        throw new Error('FormSubmit fetch failed');
+      } catch (error) {
+        // Fallback: Create hidden form and submit (avoids CORS issues)
+        const form = document.createElement('form');
+        form.action = 'https://formsubmit.co/msnyd87@gmail.com';
+        form.method = 'POST';
+        form.style.display = 'none';
+        
+        const fields = [
+          { name: 'name', value: data.name },
+          { name: 'email', value: data.email },
+          { name: 'message', value: data.message },
+          { name: '_subject', value: `Portfolio Contact from ${data.name}` },
+          { name: '_captcha', value: 'false' },
+          { name: '_next', value: window.location.origin }
+        ];
+        
+        fields.forEach(field => {
+          const input = document.createElement('input');
+          input.type = 'hidden';
+          input.name = field.name;
+          input.value = field.value;
+          form.appendChild(input);
+        });
+        
+        document.body.appendChild(form);
+        form.submit();
+        
+        return { success: true, message: "Message sent successfully! (Email may take a few minutes to arrive)" };
       }
-
-      return { success: true, message: "Message sent successfully! (Email may take a few minutes to arrive)" };
     },
     onSuccess: (data) => {
       toast({
