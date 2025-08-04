@@ -160,27 +160,25 @@ export default function Portfolio() {
 
   const contactMutation = useMutation({
     mutationFn: async (data: InsertContactMessage) => {
-      // Initialize EmailJS with your public key
-      emailjs.init('FRLo7SzWzPALF-n4P');
+      // Simple, reliable mailto solution that works on all platforms
+      const subject = `Portfolio Contact from ${data.name}`;
+      const body = `Name: ${data.name}
+Email: ${data.email}
+
+Message:
+${data.message}
+
+---
+This message was sent from your portfolio contact form.`;
       
-      // Send email using EmailJS
-      const result = await emailjs.send(
-        'service_m7xl4no', // Service ID
-        'template_wxvt49l', // Template ID
-        {
-          from_name: data.name,
-          from_email: data.email,
-          message: data.message,
-          to_email: 'msnyd87@gmail.com',
-          reply_to: data.email
-        }
-      );
+      const mailtoLink = `mailto:msnyd87@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       
-      if (result.status !== 200) {
-        throw new Error('Failed to send message');
-      }
+      // Open mail client
+      const link = document.createElement('a');
+      link.href = mailtoLink;
+      link.click();
       
-      return { success: true, message: "Message sent successfully!" };
+      return { success: true, message: "Email client opened with your message!" };
     },
     onSuccess: (data) => {
       toast({
