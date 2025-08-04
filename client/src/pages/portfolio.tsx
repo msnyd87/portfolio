@@ -477,7 +477,7 @@ export default function Portfolio() {
                     >
                       <Linkedin className="h-5 w-5" />
                     </a>
-                    <a
+                    {/* <a
                       href="https://gitlab.com/msnyd87"
                       target="_blank"
                       rel="noopener noreferrer"
@@ -492,7 +492,7 @@ export default function Portfolio() {
                       className="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center text-slate-400 hover:bg-blue-500 hover:text-white transition-all duration-300"
                     >
                       <ExternalLink className="h-5 w-5" />
-                    </a>
+                    </a> */}
                   </div>
                 </div>
               </div>
