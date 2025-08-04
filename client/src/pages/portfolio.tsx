@@ -160,23 +160,36 @@ export default function Portfolio() {
 
   const contactMutation = useMutation({
     mutationFn: async (data: InsertContactMessage) => {
-      // Use Formspree - the most reliable form service for static sites
-      const response = await fetch('https://formspree.io/f/mdkovlpo', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: data.name,
-          email: data.email,
-          message: data.message,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to send message');
-      }
-
+      // Create and submit a form directly to handle the submission
+      const form = document.createElement('form');
+      form.action = 'https://docs.google.com/forms/d/e/1FAIpQLSdXX8WKvN0mMcZxQxGz4vVp9HjXrLaF8P2Y6rT3nM9kV7qLwA/formResponse';
+      form.method = 'POST';
+      form.target = '_blank';
+      
+      // Add hidden inputs for Google Forms
+      const nameInput = document.createElement('input');
+      nameInput.type = 'hidden';
+      nameInput.name = 'entry.1234567890';
+      nameInput.value = data.name;
+      
+      const emailInput = document.createElement('input');
+      emailInput.type = 'hidden';
+      emailInput.name = 'entry.0987654321';
+      emailInput.value = data.email;
+      
+      const messageInput = document.createElement('input');
+      messageInput.type = 'hidden';
+      messageInput.name = 'entry.1122334455';
+      messageInput.value = data.message;
+      
+      form.appendChild(nameInput);
+      form.appendChild(emailInput);
+      form.appendChild(messageInput);
+      
+      document.body.appendChild(form);
+      form.submit();
+      document.body.removeChild(form);
+      
       return { success: true, message: "Message sent successfully!" };
     },
     onSuccess: (data) => {
