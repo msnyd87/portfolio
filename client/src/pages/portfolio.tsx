@@ -160,37 +160,38 @@ export default function Portfolio() {
 
   const contactMutation = useMutation({
     mutationFn: async (data: InsertContactMessage) => {
-      // Create and submit a form directly to handle the submission
-      const form = document.createElement('form');
-      form.action = 'https://docs.google.com/forms/d/e/1FAIpQLSdXX8WKvN0mMcZxQxGz4vVp9HjXrLaF8P2Y6rT3nM9kV7qLwA/formResponse';
-      form.method = 'POST';
-      form.target = '_blank';
+      // Simple solution: Store in localStorage and provide clear instructions
+      const contactData = {
+        name: data.name,
+        email: data.email,
+        message: data.message,
+        timestamp: new Date().toISOString()
+      };
       
-      // Add hidden inputs for Google Forms
-      const nameInput = document.createElement('input');
-      nameInput.type = 'hidden';
-      nameInput.name = 'entry.1234567890';
-      nameInput.value = data.name;
+      // Store locally for reference
+      localStorage.setItem('portfolio-contact', JSON.stringify(contactData));
       
-      const emailInput = document.createElement('input');
-      emailInput.type = 'hidden';
-      emailInput.name = 'entry.0987654321';
-      emailInput.value = data.email;
+      // Create professional mailto with formatted content
+      const subject = `Portfolio Contact: ${data.name}`;
+      const body = `Hi Matt,
+
+Someone contacted you through your portfolio:
+
+Name: ${data.name}
+Email: ${data.email}
+
+Message:
+${data.message}
+
+Best regards,
+Portfolio Contact Form`;
+
+      const mailtoUrl = `mailto:msnyd87@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       
-      const messageInput = document.createElement('input');
-      messageInput.type = 'hidden';
-      messageInput.name = 'entry.1122334455';
-      messageInput.value = data.message;
+      // Open email client
+      window.location.href = mailtoUrl;
       
-      form.appendChild(nameInput);
-      form.appendChild(emailInput);
-      form.appendChild(messageInput);
-      
-      document.body.appendChild(form);
-      form.submit();
-      document.body.removeChild(form);
-      
-      return { success: true, message: "Message sent successfully!" };
+      return { success: true, message: "Email client opened with your message!" };
     },
     onSuccess: (data) => {
       toast({
