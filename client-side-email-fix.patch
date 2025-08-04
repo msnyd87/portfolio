@@ -1,0 +1,46 @@
+// QUICK FIX: Client-side email using EmailJS
+// Replace the contact form mutation in portfolio.tsx with this code:
+
+// 1. Install EmailJS
+// npm install @emailjs/browser
+
+// 2. Replace the mutation code:
+import emailjs from '@emailjs/browser';
+
+const contactMutation = useMutation({
+  mutationFn: async (data: InsertContactMessage) => {
+    // Replace with your EmailJS credentials
+    return emailjs.send(
+      'YOUR_SERVICE_ID',    // Get from EmailJS dashboard
+      'YOUR_TEMPLATE_ID',   // Create template in EmailJS
+      {
+        from_name: data.name,
+        from_email: data.email,
+        message: data.message,
+        to_email: 'msnyd87@gmail.com'
+      },
+      'YOUR_PUBLIC_KEY'     // Get from EmailJS dashboard
+    );
+  },
+  onSuccess: () => {
+    toast({
+      title: "Message sent!",
+      description: "Thanks for reaching out! I'll get back to you soon.",
+    });
+    form.reset();
+  },
+  onError: () => {
+    toast({
+      title: "Error",
+      description: "Failed to send message. Please try again.",
+      variant: "destructive",
+    });
+  },
+});
+
+// EmailJS Setup:
+// 1. Create account at emailjs.com
+// 2. Create email service (Gmail, Outlook, etc.)
+// 3. Create email template
+// 4. Get your public key
+// 5. Replace the IDs above with your actual values
