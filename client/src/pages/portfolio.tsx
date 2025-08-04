@@ -166,7 +166,7 @@ export default function Portfolio() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          access_key: "YOUR_WEB3FORMS_API_KEY", // Replace with your actual API key
+          access_key: "702a3ce2-be6d-4b51-9975-8db822102264",
           name: data.name,
           email: data.email,
           message: data.message,
@@ -175,11 +175,11 @@ export default function Portfolio() {
           to: "msnyd87@gmail.com",
         }),
       });
-      
+
       if (!response.ok) {
         throw new Error("Failed to send message");
       }
-      
+
       return response.json();
     },
     onSuccess: (data) => {
@@ -300,8 +300,13 @@ export default function Portfolio() {
                 Full-Stack Developer
               </h2>
               <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
-                Full-stack developer and analyst focused on building impactful, user-first solutions.
-                With a foundation in Python, JavaScript, React, and Django, I apply a data-informed, backend-solid, and frontend-polished approach to development. My path from operational leadership and government service to software engineering has shaped my mission: deliver tools that solve real-world problems, fast and clean.
+                Full-stack developer and analyst focused on building impactful,
+                user-first solutions. With a foundation in Python, JavaScript,
+                React, and Django, I apply a data-informed, backend-solid, and
+                frontend-polished approach to development. My path from
+                operational leadership and government service to software
+                engineering has shaped my mission: deliver tools that solve
+                real-world problems, fast and clean.
               </p>
             </div>
 
@@ -450,9 +455,7 @@ export default function Portfolio() {
                       </div>
                       <div>
                         <p className="text-slate-300 font-semibold">Email</p>
-                        <p className="text-slate-400">
-                          msnyd87@gmail.com
-                        </p>
+                        <p className="text-slate-400">msnyd87@gmail.com</p>
                       </div>
                     </div>
                     <div className="flex items-center space-x-4">
