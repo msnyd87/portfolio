@@ -159,33 +159,13 @@ export default function Portfolio() {
 
   const contactMutation = useMutation({
     mutationFn: async (data: InsertContactMessage) => {
-      // Try Formspree endpoint first
-      try {
-        const response = await fetch("https://formspree.io/f/xdkooqjk", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            name: data.name,
-            email: data.email,
-            message: data.message,
-          }),
-        });
-
-        if (response.ok) {
-          return { success: true, message: "Message sent successfully!" };
-        }
-        throw new Error("Formspree failed");
-      } catch (error) {
-        // Fallback to mailto solution
-        const mailtoLink = `mailto:msnyd87@gmail.com?subject=Portfolio Contact from ${encodeURIComponent(data.name)}&body=${encodeURIComponent(
-          `Name: ${data.name}\nEmail: ${data.email}\n\nMessage:\n${data.message}`
-        )}`;
-        
-        window.open(mailtoLink);
-        return { success: true, message: "Email client opened with your message!" };
-      }
+      // Use mailto solution for reliable static hosting compatibility
+      const mailtoLink = `mailto:msnyd87@gmail.com?subject=Portfolio Contact from ${encodeURIComponent(data.name)}&body=${encodeURIComponent(
+        `Name: ${data.name}\nEmail: ${data.email}\n\nMessage:\n${data.message}`
+      )}`;
+      
+      window.open(mailtoLink);
+      return { success: true, message: "Email client opened with your message!" };
     },
     onSuccess: (data) => {
       toast({
