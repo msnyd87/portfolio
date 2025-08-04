@@ -1,19 +1,514 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Matt Snyder - Full Stack Developer Portfolio</title>
-    <meta name="description" content="Dynamic Full-Stack Engineer specializing in Python, JavaScript, React, Django, and modern web technologies. View my portfolio of featured projects and get in touch for freelance work." />
+    <meta name="description" content="Dynamic Full-Stack Engineer specializing in Python, JavaScript, React, Django, and modern web technologies. View my portfolio of featured projects and get in touch for freelance work.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script type="module" crossorigin src="/assets/index-DWyWXEEW.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-BvINfCVN.css">
-  </head>
-  <body>
-    <div id="root"></div>
-    <!-- This is a replit script which adds a banner on the top of the page when opened in development mode outside the replit environment -->
-    <script type="text/javascript" src="https://replit.com/public/js/replit-dev-banner.js"></script>
-  </body>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            color: #e2e8f0;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 15, 35, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .nav-links a:hover {
+            color: #6366f1;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 8rem 0 4rem;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero .subtitle {
+            font-size: 1.5rem;
+            color: #94a3b8;
+            margin-bottom: 1rem;
+        }
+        
+        .hero .description {
+            font-size: 1.1rem;
+            color: #cbd5e1;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: #cbd5e1;
+            border: 2px solid #374151;
+        }
+        
+        .btn-secondary:hover {
+            border-color: #6366f1;
+            color: #6366f1;
+        }
+        
+        /* Projects Section */
+        .projects {
+            padding: 4rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .project-card {
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(99, 102, 241, 0.5);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.1);
+        }
+        
+        .project-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #f1f5f9;
+        }
+        
+        .project-card p {
+            color: #94a3b8;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .tech-tag {
+            background: rgba(99, 102, 241, 0.2);
+            color: #a5b4fc;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .project-links a {
+            color: #6366f1;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
+        .project-links a:hover {
+            color: #8b5cf6;
+        }
+        
+        /* Contact Section */
+        .contact {
+            padding: 4rem 0;
+            background: rgba(15, 15, 35, 0.5);
+        }
+        
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .contact form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+        
+        .form-group label {
+            margin-bottom: 0.5rem;
+            color: #cbd5e1;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            padding: 0.75rem;
+            border-radius: 8px;
+            border: 1px solid #374151;
+            background: rgba(30, 41, 59, 0.5);
+            color: #e2e8f0;
+            font-family: inherit;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(99, 102, 241, 0.2);
+            color: #94a3b8;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .social-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: #6366f1;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero {
+                padding: 6rem 0 3rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">Matt Snyder</div>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="about" class="hero">
+            <div class="container">
+                <h1>Matt Snyder</h1>
+                <p class="subtitle">Full-Stack Developer</p>
+                <p class="description">
+                    Dynamic Full-Stack Engineer with a unique background in operational leadership and government service. 
+                    I specialize in Python, JavaScript, React, and Django, with a mission to solve real-world problems through innovative technology solutions.
+                </p>
+                <div class="cta-buttons">
+                    <a href="#projects" class="btn btn-primary">View My Work</a>
+                    <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="projects">
+            <div class="container">
+                <h2 class="section-title">Featured Projects</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <h3>Halfway - MBTI Dating App</h3>
+                        <p>A modern dating platform that matches users based on MBTI personality types, featuring real-time messaging and advanced compatibility algorithms.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">FastAPI</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                            <span class="tech-tag">WebSockets</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/matthewsnyder263/halfway" target="_blank">GitHub</a>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <h3>WTO Alert Filter</h3>
+                        <p>Python automation tool that filters and processes World Trade Organization alerts, streamlining compliance monitoring for international trade.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Automation</span>
+                            <span class="tech-tag">Data Processing</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/matthewsnyder263/wto-alert-filter" target="_blank">GitHub</a>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <h3>CarCar - Auto Management System</h3>
+                        <p>Comprehensive automotive management platform with inventory tracking, service scheduling, and customer relationship management.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Django</span>
+                            <span class="tech-tag">Docker</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/matthewsnyder263/carcar" target="_blank">GitHub</a>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <h3>Task Management System</h3>
+                        <p>Efficient project management tool with team collaboration features, task tracking, and progress visualization.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Django</span>
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">REST API</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/matthewsnyder263/task-management" target="_blank">GitHub</a>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <h3>Scrumptious Recipes</h3>
+                        <p>Social recipe sharing platform where users can discover, save, and share their favorite recipes with the community.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Django</span>
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Social Features</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/matthewsnyder263/scrumptious-recipes" target="_blank">GitHub</a>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <h3>Conference Management System</h3>
+                        <p>Full-featured conference management platform with attendee registration, session scheduling, and speaker management.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Django</span>
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Event Management</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/matthewsnyder263/conference-management" target="_blank">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="container">
+                <div class="contact-content">
+                    <h2 class="section-title">Get In Touch</h2>
+                    <p>Ready to bring your project to life? Let's discuss how we can work together.</p>
+                    
+                    <form action="https://formsubmit.co/msnyd87@gmail.com" method="POST">
+                        <!-- Hidden fields for FormSubmit configuration -->
+                        <input type="hidden" name="_subject" value="New Portfolio Contact Form Submission">
+                        <input type="hidden" name="_next" value="https://matthewsnyder263.github.io/">
+                        <input type="hidden" name="_captcha" value="false">
+                        
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="https://github.com/matthewsnyder263" target="_blank">GitHub</a>
+                <a href="https://linkedin.com/in/matthew-snyder-263" target="_blank">LinkedIn</a>
+            </div>
+            <p>&copy; 2025 Matt Snyder. All rights reserved.</p>
+            <p>📧 msnyd87@gmail.com | 📱 +1 (323) 844-3638 | 📍 Sparks, NV</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Form submission confirmation
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const button = this.querySelector('button[type="submit"]');
+            button.textContent = 'Sending...';
+            button.disabled = true;
+        });
+    </script>
+</body>
 </html>

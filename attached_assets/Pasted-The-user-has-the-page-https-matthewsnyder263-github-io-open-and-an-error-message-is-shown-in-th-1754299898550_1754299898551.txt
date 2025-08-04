@@ -1,0 +1,35 @@
+The user has the page "https://matthewsnyder263.github.io/" open and an error message is shown in the DevTools Console for this page. The error message is wrapped within <DevToolsErrorMessage></DevToolsErrorMessage> below. Explain the error message and what could have caused it, and provide a way to fix it. <DevToolsErrorMessage>index-B6Ojm_Me.js:48 POST https://matthewsnyder263.github.io/api/contact 405 (Method Not Allowed)</DevToolsErrorMessage> index-B6Ojm_Me.js:48 POST https://matthewsnyder263.github.io/api/contact 405 (Method Not Allowed) Explain the error message from DevTools console
+🚧 Error Explanation: The error message you're seeing—405 (Method Not Allowed) on a POST request to https://matthewsnyder263.github.io/api/contact—indicates that the server (in this case, GitHub Pages) received the request but doesn’t allow that specific HTTP method (POST) at that URL.
+
+📌 What’s causing this?
+GitHub Pages is a static site hosting service. It can serve HTML, CSS, JS, and static assets, but it doesn’t support server-side code or APIs.
+
+The URL https://matthewsnyder263.github.io/api/contact implies you're trying to send data (likely from a contact form) to a server endpoint.
+
+Because there’s no actual backend API configured to receive POST requests at that URL, GitHub Pages responds with a 405 error.
+
+✅ How to fix it:
+You have two main options depending on how dynamic you want your site to be:
+
+1. Use a form submission service
+Since you can’t run a backend on GitHub Pages, use a third-party service to handle your form:
+
+💌 Formspree – https://formspree.io
+
+📮 Getform – https://getform.io
+
+📨 Netlify Forms – if you ever move to Netlify hosting
+
+📬 Google Forms – embed a Google Form and style it to match your site
+
+They’ll give you a custom endpoint to replace /api/contact in your JavaScript.
+
+2. Host a backend elsewhere
+If you need full control:
+
+Deploy a backend (Node.js, Python, etc.) to a service like Render, Vercel, or Firebase Functions
+
+Change the form’s action URL to point to your deployed API
+
+Let me know how you'd prefer to handle the form, and I can help you with the setup or updating the JavaScript code to use one of these services.
+
