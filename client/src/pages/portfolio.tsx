@@ -483,16 +483,16 @@ export default function Portfolio() {
                       rel="noopener noreferrer"
                       className="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center text-slate-400 hover:bg-blue-500 hover:text-white transition-all duration-300"
                     >
-                      <ExternalLink className="h-5 w-5" />
-                    </a>
-                    <a
-                      href="https://matthewsnyder263.github.io/"
+#                      <ExternalLink className="h-5 w-5" />
+#                    </a>
+#                    <a
+#                      href="https://matthewsnyder263.github.io/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center text-slate-400 hover:bg-blue-500 hover:text-white transition-all duration-300"
-                    >
-                      <ExternalLink className="h-5 w-5" />
-                    </a>
+#                   >
+#                      <ExternalLink className="h-5 w-5" />
+#                    </a>
                   </div>
                 </div>
               </div>
