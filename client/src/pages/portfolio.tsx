@@ -160,25 +160,22 @@ export default function Portfolio() {
 
   const contactMutation = useMutation({
     mutationFn: async (data: InsertContactMessage) => {
-      // Use Web3Forms - reliable and free service
+      // Use FormSubmit.co - simple and reliable
       const formData = new FormData();
-      formData.append('access_key', '702a3ce2-be6d-4b51-9975-8db822102264');
       formData.append('name', data.name);
       formData.append('email', data.email);
       formData.append('message', data.message);
-      formData.append('subject', `Portfolio Contact from ${data.name}`);
-      formData.append('from_name', data.name);
-      formData.append('to_email', 'msnyd87@gmail.com');
+      formData.append('_subject', `Portfolio Contact from ${data.name}`);
+      formData.append('_captcha', 'false');
+      formData.append('_template', 'table');
 
-      const response = await fetch('https://api.web3forms.com/submit', {
+      const response = await fetch('https://formsubmit.co/msnyd87@gmail.com', {
         method: 'POST',
         body: formData
       });
 
-      const result = await response.json();
-
-      if (!response.ok || !result.success) {
-        throw new Error(result.message || 'Failed to send message');
+      if (!response.ok) {
+        throw new Error('Failed to send message');
       }
 
       return { success: true, message: "Message sent successfully!" };
