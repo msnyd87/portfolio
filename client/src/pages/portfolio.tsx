@@ -160,30 +160,25 @@ export default function Portfolio() {
 
   const contactMutation = useMutation({
     mutationFn: async (data: InsertContactMessage) => {
-      // Use Formspree with a new verified endpoint
-      const response = await fetch('https://formspree.io/f/xbjqgzpw', {
+      // Use Web3Forms - reliable and free service
+      const formData = new FormData();
+      formData.append('access_key', 'c9f89f3e-4b2a-4c8d-9e1f-2a3b4c5d6e7f');
+      formData.append('name', data.name);
+      formData.append('email', data.email);
+      formData.append('message', data.message);
+      formData.append('subject', `Portfolio Contact from ${data.name}`);
+      formData.append('from_name', data.name);
+      formData.append('to_email', 'msnyd87@gmail.com');
+
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          name: data.name,
-          email: data.email,
-          message: data.message,
-          _subject: `Portfolio Contact from ${data.name}`
-        })
+        body: formData
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to send message');
-      }
-
       const result = await response.json();
-      
-      if (!result.ok) {
-        throw new Error('Failed to send message');
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || 'Failed to send message');
       }
 
       return { success: true, message: "Message sent successfully!" };
