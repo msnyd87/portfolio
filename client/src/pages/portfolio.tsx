@@ -1,33 +1,11 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
-import { insertContactMessageSchema } from "@shared/schema";
-import type { InsertContactMessage } from "@shared/schema";
-import { apiRequest } from "@/lib/queryClient";
-import { useToast } from "@/hooks/use-toast";
-import emailjs from '@emailjs/browser';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
 import { Badge } from "@/components/ui/badge";
 import {
   Menu,
-  Mail,
-  Phone,
-  MapPin,
   Github,
   Linkedin,
-  Twitter,
   ExternalLink,
   ChevronDown,
 } from "lucide-react";
@@ -147,87 +125,6 @@ const techStackColors: Record<string, string> = {
 
 export default function Portfolio() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { toast } = useToast();
-
-  const form = useForm<InsertContactMessage>({
-    resolver: zodResolver(insertContactMessageSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      message: "",
-    },
-  });
-
-  const contactMutation = useMutation({
-    mutationFn: async (data: InsertContactMessage) => {
-      // Try FormSubmit.co first, fallback to hidden form submission for CORS issues
-      try {
-        const formData = new FormData();
-        formData.append('name', data.name);
-        formData.append('email', data.email);
-        formData.append('message', data.message);
-        formData.append('_subject', `Portfolio Contact from ${data.name}`);
-        formData.append('_captcha', 'false');
-        formData.append('_next', window.location.origin);
-
-        const response = await fetch('https://formsubmit.co/msnyd87@gmail.com', {
-          method: 'POST',
-          body: formData
-        });
-
-        if (response.ok) {
-          return { success: true, message: "Message sent successfully! (Email may take a few minutes to arrive)" };
-        }
-        throw new Error('FormSubmit fetch failed');
-      } catch (error) {
-        // Fallback: Create hidden form and submit (avoids CORS issues)
-        const form = document.createElement('form');
-        form.action = 'https://formsubmit.co/msnyd87@gmail.com';
-        form.method = 'POST';
-        form.style.display = 'none';
-        
-        const fields = [
-          { name: 'name', value: data.name },
-          { name: 'email', value: data.email },
-          { name: 'message', value: data.message },
-          { name: '_subject', value: `Portfolio Contact from ${data.name}` },
-          { name: '_captcha', value: 'false' },
-          { name: '_next', value: window.location.origin }
-        ];
-        
-        fields.forEach(field => {
-          const input = document.createElement('input');
-          input.type = 'hidden';
-          input.name = field.name;
-          input.value = field.value;
-          form.appendChild(input);
-        });
-        
-        document.body.appendChild(form);
-        form.submit();
-        
-        return { success: true, message: "Message sent successfully! (Email may take a few minutes to arrive)" };
-      }
-    },
-    onSuccess: (data) => {
-      toast({
-        title: "Message sent!",
-        description: "Thanks for your message! I'll get back to you soon.",
-      });
-      form.reset();
-    },
-    onError: (error) => {
-      toast({
-        title: "Error",
-        description: "Failed to send message. Please try again.",
-        variant: "destructive",
-      });
-    },
-  });
-
-  const onSubmit = (data: InsertContactMessage) => {
-    contactMutation.mutate(data);
-  };
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -257,12 +154,7 @@ export default function Portfolio() {
               >
                 Projects
               </button>
-              <button
-                onClick={() => scrollToSection("contact")}
-                className="text-slate-300 hover:text-blue-400 transition-colors duration-300"
-              >
-                Contact
-              </button>
+
             </div>
             <button
               className="md:hidden text-slate-300 hover:text-blue-400"
@@ -285,12 +177,7 @@ export default function Portfolio() {
               >
                 Projects
               </button>
-              <button
-                onClick={() => scrollToSection("contact")}
-                className="block w-full text-left text-slate-300 hover:text-blue-400 transition-colors duration-300 py-2"
-              >
-                Contact
-              </button>
+
             </div>
           )}
         </div>
@@ -456,180 +343,7 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section id="contact" className="py-24 bg-slate-900">
-        <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                Let's Work Together
-              </h2>
-              <p className="text-xl text-slate-400 max-w-2xl mx-auto">
-                Have a project in mind? I'd love to hear about it. Send me a
-                message and let's work on something together.
-              </p>
-            </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-              {/* Contact Information */}
-              <div className="space-y-8">
-                <div>
-                  <h3 className="text-2xl font-bold mb-6">Get In Touch</h3>
-                  <div className="space-y-4">
-                    <div className="flex items-center space-x-4">
-                      <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center">
-                        <Mail className="text-blue-400 h-5 w-5" />
-                      </div>
-                      <div>
-                        <p className="text-slate-300 font-semibold">Email</p>
-                        <p className="text-slate-400">msnyd87@gmail.com</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center space-x-4">
-                      <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center">
-                        <Phone className="text-blue-400 h-5 w-5" />
-                      </div>
-                      <div>
-                        <p className="text-slate-300 font-semibold">Phone</p>
-                        <p className="text-slate-400">+1 (323) 844-3638</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center space-x-4">
-                      <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center">
-                        <MapPin className="text-blue-400 h-5 w-5" />
-                      </div>
-                      <div>
-                        <p className="text-slate-300 font-semibold">Location</p>
-                        <p className="text-slate-400">Sparks, NV</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div>
-                  <h4 className="text-lg font-semibold mb-4">Follow Me</h4>
-                  <div className="flex space-x-4">
-                    <a
-                      href="https://github.com/matthewsnyder263/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center text-slate-400 hover:bg-blue-500 hover:text-white transition-all duration-300"
-                    >
-                      <Github className="h-5 w-5" />
-                    </a>
-                    <a
-                      href="https://www.linkedin.com/in/msnyd87/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center text-slate-400 hover:bg-blue-500 hover:text-white transition-all duration-300"
-                    >
-                      <Linkedin className="h-5 w-5" />
-                    </a>
-                    {/* <a
-                      href="https://gitlab.com/msnyd87"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center text-slate-400 hover:bg-blue-500 hover:text-white transition-all duration-300"
-                    >
-                      <ExternalLink className="h-5 w-5" />
-                    </a>
-                    <a
-                      href="https://matthewsnyder263.github.io/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center text-slate-400 hover:bg-blue-500 hover:text-white transition-all duration-300"
-                    >
-                      <ExternalLink className="h-5 w-5" />
-                    </a> */}
-                  </div>
-                </div>
-              </div>
-
-              {/* Contact Form */}
-              <Card className="bg-slate-800 border-slate-700">
-                <CardContent className="p-8">
-                  <Form {...form}>
-                    <form
-                      onSubmit={form.handleSubmit(onSubmit)}
-                      className="space-y-6"
-                    >
-                      <FormField
-                        control={form.control}
-                        name="name"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className="text-sm font-medium text-slate-300">
-                              Name
-                            </FormLabel>
-                            <FormControl>
-                              <Input
-                                placeholder="Your Name"
-                                {...field}
-                                className="bg-slate-700 border-slate-600 text-slate-100 placeholder-slate-400 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20"
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="email"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className="text-sm font-medium text-slate-300">
-                              Email
-                            </FormLabel>
-                            <FormControl>
-                              <Input
-                                type="email"
-                                placeholder="your.email@example.com"
-                                {...field}
-                                className="bg-slate-700 border-slate-600 text-slate-100 placeholder-slate-400 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20"
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="message"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className="text-sm font-medium text-slate-300">
-                              Message
-                            </FormLabel>
-                            <FormControl>
-                              <Textarea
-                                placeholder="Tell me about your project..."
-                                rows={6}
-                                {...field}
-                                className="bg-slate-700 border-slate-600 text-slate-100 placeholder-slate-400 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 resize-none"
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <Button
-                        type="submit"
-                        className="w-full bg-gradient-to-r from-blue-500 to-violet-500 text-white py-3 px-6 rounded-lg font-semibold hover:shadow-lg hover:scale-105 transition-all duration-300"
-                        disabled={contactMutation.isPending}
-                        size="lg"
-                      >
-                        {contactMutation.isPending
-                          ? "Sending..."
-                          : "Send Message"}
-                      </Button>
-                    </form>
-                  </Form>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Footer */}
       <footer className="py-12 bg-slate-950 border-t border-slate-800">
