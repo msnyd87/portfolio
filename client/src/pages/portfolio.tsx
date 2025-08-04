@@ -159,13 +159,35 @@ export default function Portfolio() {
 
   const contactMutation = useMutation({
     mutationFn: async (data: InsertContactMessage) => {
-      // Use mailto solution for reliable static hosting compatibility
-      const mailtoLink = `mailto:msnyd87@gmail.com?subject=Portfolio Contact from ${encodeURIComponent(data.name)}&body=${encodeURIComponent(
-        `Name: ${data.name}\nEmail: ${data.email}\n\nMessage:\n${data.message}`
-      )}`;
+      // Create a hidden form for Netlify Forms (works on GitHub Pages with Netlify)
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = 'https://formsubmit.co/msnyd87@gmail.com';
+      form.style.display = 'none';
       
-      window.open(mailtoLink);
-      return { success: true, message: "Email client opened with your message!" };
+      // Add form fields
+      const fields = [
+        { name: '_subject', value: `Portfolio Contact from ${data.name}` },
+        { name: '_captcha', value: 'false' },
+        { name: '_template', value: 'table' },
+        { name: 'name', value: data.name },
+        { name: 'email', value: data.email },
+        { name: 'message', value: data.message }
+      ];
+      
+      fields.forEach(field => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = field.name;
+        input.value = field.value;
+        form.appendChild(input);
+      });
+      
+      document.body.appendChild(form);
+      form.submit();
+      document.body.removeChild(form);
+      
+      return { success: true, message: "Message sent successfully!" };
     },
     onSuccess: (data) => {
       toast({
