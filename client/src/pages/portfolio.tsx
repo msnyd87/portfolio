@@ -162,7 +162,7 @@ export default function Portfolio() {
     mutationFn: async (data: InsertContactMessage) => {
       // Use Web3Forms - reliable and free service
       const formData = new FormData();
-      formData.append('access_key', 'c9f89f3e-4b2a-4c8d-9e1f-2a3b4c5d6e7f');
+      formData.append('access_key', '702a3ce2-be6d-4b51-9975-8db822102264');
       formData.append('name', data.name);
       formData.append('email', data.email);
       formData.append('message', data.message);
