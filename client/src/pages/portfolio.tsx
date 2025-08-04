@@ -321,20 +321,20 @@ export default function Portfolio() {
               >
                 <Linkedin className="h-6 w-6" />
               </a>
-              <a
+              {/* <a
                 href="https://gitlab.com/msnyd87"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-slate-400 hover:text-blue-400 text-2xl transition-colors duration-300"
               >
                 <ExternalLink className="h-6 w-6" />
-              </a>
-              <a
+              </a> */}
+              {/* <a
                 href="mailto:msnyd87@gmail.com"
                 className="text-slate-400 hover:text-blue-400 text-2xl transition-colors duration-300"
               >
                 <Mail className="h-6 w-6" />
-              </a>
+              </a> */}
             </div>
           </div>
         </div>
