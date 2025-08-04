@@ -160,25 +160,24 @@ export default function Portfolio() {
 
   const contactMutation = useMutation({
     mutationFn: async (data: InsertContactMessage) => {
-      // Simple, reliable mailto solution that works on all platforms
-      const subject = `Portfolio Contact from ${data.name}`;
-      const body = `Name: ${data.name}
-Email: ${data.email}
+      // Use Formspree - the most reliable form service for static sites
+      const response = await fetch('https://formspree.io/f/mdkovlpo', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          message: data.message,
+        }),
+      });
 
-Message:
-${data.message}
+      if (!response.ok) {
+        throw new Error('Failed to send message');
+      }
 
----
-This message was sent from your portfolio contact form.`;
-      
-      const mailtoLink = `mailto:msnyd87@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      
-      // Open mail client
-      const link = document.createElement('a');
-      link.href = mailtoLink;
-      link.click();
-      
-      return { success: true, message: "Email client opened with your message!" };
+      return { success: true, message: "Message sent successfully!" };
     },
     onSuccess: (data) => {
       toast({
