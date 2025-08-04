@@ -170,6 +170,7 @@ export default function Portfolio() {
         { name: '_subject', value: `Portfolio Contact from ${data.name}` },
         { name: '_captcha', value: 'false' },
         { name: '_template', value: 'table' },
+        { name: '_next', value: 'https://matthewsnyder263.github.io/' },
         { name: 'name', value: data.name },
         { name: 'email', value: data.email },
         { name: 'message', value: data.message }

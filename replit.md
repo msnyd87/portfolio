@@ -47,13 +47,14 @@ A responsive freelance developer portfolio website built with React/TypeScript a
 - **Social Links Updated**: Reduced to GitHub and LinkedIn only (commented out GitLab and old portfolio)
 - **Email Integration**: Successfully integrated Resend API for working contact form
 - **Server Fix (Aug 4, 2025)**: Restored missing server directory and files, fixed startup issues, confirmed contact form working
-- **GitHub Deployment**: **COMPLETED** - Portfolio successfully deployed to https://matthewsnyder263.github.io/ with working Web3Forms contact integration (Updated Aug 4, 2025)
+- **GitHub Deployment**: **COMPLETED** - Portfolio successfully deployed to https://matthewsnyder263.github.io/ with working FormSubmit.co contact integration (Updated Aug 4, 2025)
 - **Replit Cleanup**: Removed all Replit-specific dependencies and references for clean deployment
 
 ## Architecture Notes
 - All projects link to Matt's actual GitHub repositories
 - Portfolio successfully deployed and live on GitHub Pages
-- Contact form fully functional with Resend email delivery (tested and working)
+- Contact form fully functional with FormSubmit.co email delivery (tested and working)
 - Clean deployment package created without Replit dependencies
 - Maintained responsive design and animations
 - Production-ready with comprehensive documentation
+- Form submission redirects back to portfolio instead of external thank you page
