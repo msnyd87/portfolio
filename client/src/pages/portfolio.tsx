@@ -6,6 +6,7 @@ import { insertContactMessageSchema } from "@shared/schema";
 import type { InsertContactMessage } from "@shared/schema";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
+import emailjs from '@emailjs/browser';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -159,21 +160,23 @@ export default function Portfolio() {
 
   const contactMutation = useMutation({
     mutationFn: async (data: InsertContactMessage) => {
-      // Use FormSubmit.co with fetch to avoid page redirects
-      const formData = new FormData();
-      formData.append('_subject', `Portfolio Contact from ${data.name}`);
-      formData.append('_captcha', 'false');
-      formData.append('_template', 'table');
-      formData.append('name', data.name);
-      formData.append('email', data.email);
-      formData.append('message', data.message);
+      // Initialize EmailJS with your public key
+      emailjs.init('FRLo7SzWzPALF-n4P');
       
-      const response = await fetch('https://formsubmit.co/msnyd87@gmail.com', {
-        method: 'POST',
-        body: formData
-      });
+      // Send email using EmailJS
+      const result = await emailjs.send(
+        'service_m7xl4no', // Service ID
+        'template_wxvt49l', // Template ID
+        {
+          from_name: data.name,
+          from_email: data.email,
+          message: data.message,
+          to_email: 'msnyd87@gmail.com',
+          reply_to: data.email
+        }
+      );
       
-      if (!response.ok) {
+      if (result.status !== 200) {
         throw new Error('Failed to send message');
       }
       
