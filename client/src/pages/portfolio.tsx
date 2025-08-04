@@ -159,13 +159,28 @@ export default function Portfolio() {
 
   const contactMutation = useMutation({
     mutationFn: async (data: InsertContactMessage) => {
-      // Temporary solution: Open email client
-      const mailtoLink = `mailto:msnyd87@gmail.com?subject=Portfolio Contact from ${data.name}&body=Name: ${data.name}%0D%0AEmail: ${data.email}%0D%0A%0D%0AMessage:%0D%0A${encodeURIComponent(data.message)}`;
+      // Use Web3Forms API for reliable form submission
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          access_key: "YOUR_WEB3FORMS_API_KEY", // Replace with your actual API key
+          name: data.name,
+          email: data.email,
+          message: data.message,
+          from_name: "Portfolio Contact Form",
+          subject: `New message from ${data.name}`,
+          to: "msnyd87@gmail.com",
+        }),
+      });
       
-      window.open(mailtoLink);
+      if (!response.ok) {
+        throw new Error("Failed to send message");
+      }
       
-      // Return success to show confirmation
-      return { success: true, message: "Email client opened successfully!" };
+      return response.json();
     },
     onSuccess: (data) => {
       toast({
