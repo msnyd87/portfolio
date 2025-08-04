@@ -160,14 +160,14 @@ export default function Portfolio() {
 
   const contactMutation = useMutation({
     mutationFn: async (data: InsertContactMessage) => {
-      // Use FormSubmit.co with proper configuration
+      // Use FormSubmit.co - confirmed working (emails may be delayed)
       const formData = new FormData();
       formData.append('name', data.name);
       formData.append('email', data.email);
       formData.append('message', data.message);
       formData.append('_subject', `Portfolio Contact from ${data.name}`);
       formData.append('_captcha', 'false');
-      formData.append('_next', window.location.origin); // Return to portfolio after submission
+      formData.append('_next', window.location.origin);
 
       const response = await fetch('https://formsubmit.co/msnyd87@gmail.com', {
         method: 'POST',
@@ -178,7 +178,7 @@ export default function Portfolio() {
         throw new Error('Failed to send message');
       }
 
-      return { success: true, message: "Message sent successfully!" };
+      return { success: true, message: "Message sent successfully! (Email may take a few minutes to arrive)" };
     },
     onSuccess: (data) => {
       toast({
