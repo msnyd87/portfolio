@@ -160,38 +160,33 @@ export default function Portfolio() {
 
   const contactMutation = useMutation({
     mutationFn: async (data: InsertContactMessage) => {
-      // Simple solution: Store in localStorage and provide clear instructions
-      const contactData = {
-        name: data.name,
-        email: data.email,
-        message: data.message,
-        timestamp: new Date().toISOString()
-      };
+      // Use Formspree with a new verified endpoint
+      const response = await fetch('https://formspree.io/f/xbjqgzpw', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          message: data.message,
+          _subject: `Portfolio Contact from ${data.name}`
+        })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to send message');
+      }
+
+      const result = await response.json();
       
-      // Store locally for reference
-      localStorage.setItem('portfolio-contact', JSON.stringify(contactData));
-      
-      // Create professional mailto with formatted content
-      const subject = `Portfolio Contact: ${data.name}`;
-      const body = `Hi Matt,
+      if (!result.ok) {
+        throw new Error('Failed to send message');
+      }
 
-Someone contacted you through your portfolio:
-
-Name: ${data.name}
-Email: ${data.email}
-
-Message:
-${data.message}
-
-Best regards,
-Portfolio Contact Form`;
-
-      const mailtoUrl = `mailto:msnyd87@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      
-      // Open email client
-      window.location.href = mailtoUrl;
-      
-      return { success: true, message: "Email client opened with your message!" };
+      return { success: true, message: "Message sent successfully!" };
     },
     onSuccess: (data) => {
       toast({
