@@ -159,34 +159,23 @@ export default function Portfolio() {
 
   const contactMutation = useMutation({
     mutationFn: async (data: InsertContactMessage) => {
-      // Create a hidden form for Netlify Forms (works on GitHub Pages with Netlify)
-      const form = document.createElement('form');
-      form.method = 'POST';
-      form.action = 'https://formsubmit.co/msnyd87@gmail.com';
-      form.style.display = 'none';
+      // Use FormSubmit.co with fetch to avoid page redirects
+      const formData = new FormData();
+      formData.append('_subject', `Portfolio Contact from ${data.name}`);
+      formData.append('_captcha', 'false');
+      formData.append('_template', 'table');
+      formData.append('name', data.name);
+      formData.append('email', data.email);
+      formData.append('message', data.message);
       
-      // Add form fields
-      const fields = [
-        { name: '_subject', value: `Portfolio Contact from ${data.name}` },
-        { name: '_captcha', value: 'false' },
-        { name: '_template', value: 'table' },
-        { name: '_next', value: 'https://matthewsnyder263.github.io/' },
-        { name: 'name', value: data.name },
-        { name: 'email', value: data.email },
-        { name: 'message', value: data.message }
-      ];
-      
-      fields.forEach(field => {
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = field.name;
-        input.value = field.value;
-        form.appendChild(input);
+      const response = await fetch('https://formsubmit.co/msnyd87@gmail.com', {
+        method: 'POST',
+        body: formData
       });
       
-      document.body.appendChild(form);
-      form.submit();
-      document.body.removeChild(form);
+      if (!response.ok) {
+        throw new Error('Failed to send message');
+      }
       
       return { success: true, message: "Message sent successfully!" };
     },
