@@ -159,28 +159,33 @@ export default function Portfolio() {
 
   const contactMutation = useMutation({
     mutationFn: async (data: InsertContactMessage) => {
-      // Use Web3Forms API for reliable form submission
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          access_key: "702a3ce2-be6d-4b51-9975-8db822102264",
-          name: data.name,
-          email: data.email,
-          message: data.message,
-          from_name: "Portfolio Contact Form",
-          subject: `New message from ${data.name}`,
-          to: "msnyd87@gmail.com",
-        }),
-      });
+      // Try Formspree endpoint first
+      try {
+        const response = await fetch("https://formspree.io/f/xdkooqjk", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: data.name,
+            email: data.email,
+            message: data.message,
+          }),
+        });
 
-      if (!response.ok) {
-        throw new Error("Failed to send message");
+        if (response.ok) {
+          return { success: true, message: "Message sent successfully!" };
+        }
+        throw new Error("Formspree failed");
+      } catch (error) {
+        // Fallback to mailto solution
+        const mailtoLink = `mailto:msnyd87@gmail.com?subject=Portfolio Contact from ${encodeURIComponent(data.name)}&body=${encodeURIComponent(
+          `Name: ${data.name}\nEmail: ${data.email}\n\nMessage:\n${data.message}`
+        )}`;
+        
+        window.open(mailtoLink);
+        return { success: true, message: "Email client opened with your message!" };
       }
-
-      return response.json();
     },
     onSuccess: (data) => {
       toast({
