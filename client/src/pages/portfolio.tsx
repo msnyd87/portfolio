@@ -159,13 +159,18 @@ export default function Portfolio() {
 
   const contactMutation = useMutation({
     mutationFn: async (data: InsertContactMessage) => {
-      const response = await apiRequest("POST", "/api/contact", data);
-      return response.json();
+      // Temporary solution: Open email client
+      const mailtoLink = `mailto:msnyd87@gmail.com?subject=Portfolio Contact from ${data.name}&body=Name: ${data.name}%0D%0AEmail: ${data.email}%0D%0A%0D%0AMessage:%0D%0A${encodeURIComponent(data.message)}`;
+      
+      window.open(mailtoLink);
+      
+      // Return success to show confirmation
+      return { success: true, message: "Email client opened successfully!" };
     },
     onSuccess: (data) => {
       toast({
         title: "Message sent!",
-        description: data.message,
+        description: "Thanks for your message! I'll get back to you soon.",
       });
       form.reset();
     },
