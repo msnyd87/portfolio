@@ -30,8 +30,9 @@ A responsive freelance developer portfolio website built with React/TypeScript a
 - Values clean, professional portfolio presentation
 
 ## Recent Changes (August 4, 2025)
-- **Personal Information Updated**: Changed from Alex Chen to Matt Snyder with title "Dynamic Full-Stack Engineer"
-- **Bio Updated**: Added Matt's professional summary emphasizing Python, JavaScript, React, Django expertise
+- **Personal Information Updated**: Changed from Alex Chen to Matt Snyder with title "Full-Stack Developer"  
+- **Bio Updated**: Added Matt's authentic background story emphasizing his path from operational leadership and government service to software engineering, with mission to solve real-world problems
+- **GitHub Links Fixed**: All project links now point to actual GitHub repositories instead of portfolio URL
 - **Real Projects Added**: Replaced 6 sample projects with Matt's actual GitHub repositories:
   1. Halfway - MBTI Dating App (React, FastAPI, PostgreSQL)
   2. WTO Alert Filter (Python automation tool)

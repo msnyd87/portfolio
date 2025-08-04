@@ -51,7 +51,7 @@ const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300",
     techStack: ["React", "FastAPI", "PostgreSQL", "JavaScript"],
-    projectUrl: "https://matthewsnyder263.github.io/",
+    projectUrl: "https://github.com/matthewsnyder263/type-halfway",
     githubUrl: "https://github.com/matthewsnyder263/type-halfway",
   },
   {
@@ -62,7 +62,7 @@ const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1586953208448-b95a79798f07?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300",
     techStack: ["Python", "Pandas", "Excel", "Data Processing"],
-    projectUrl: "https://matthewsnyder263.github.io/",
+    projectUrl: "https://github.com/matthewsnyder263/wto-alert-filter",
     githubUrl: "https://github.com/matthewsnyder263/wto-alert-filter",
   },
   {
@@ -73,7 +73,7 @@ const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300",
     techStack: ["React", "Django", "PostgreSQL", "Docker"],
-    projectUrl: "https://matthewsnyder263.github.io/",
+    projectUrl: "https://github.com/matthewsnyder263/auto-mgt-sys",
     githubUrl: "https://github.com/matthewsnyder263/auto-mgt-sys",
   },
   {
@@ -84,7 +84,7 @@ const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300",
     techStack: ["Django", "Python", "SQLite", "HTML"],
-    projectUrl: "https://matthewsnyder263.github.io/",
+    projectUrl: "https://github.com/matthewsnyder263/task-mgt-sys",
     githubUrl: "https://github.com/matthewsnyder263/task-mgt-sys",
   },
   {
@@ -95,7 +95,7 @@ const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300",
     techStack: ["Django", "Python", "SQLite", "HTML"],
-    projectUrl: "https://matthewsnyder263.github.io/",
+    projectUrl: "https://github.com/matthewsnyder263/recipes_django",
     githubUrl: "https://github.com/matthewsnyder263/recipes_django",
   },
   {
@@ -106,7 +106,7 @@ const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300",
     techStack: ["Django", "React", "PostgreSQL", "Docker"],
-    projectUrl: "https://matthewsnyder263.github.io/",
+    projectUrl: "https://github.com/matthewsnyder263/fearless-frontend",
     githubUrl: "https://github.com/matthewsnyder263/fearless-frontend",
   },
 ];
@@ -280,8 +280,8 @@ export default function Portfolio() {
                 Full-Stack Developer
               </h2>
               <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
-                Full-stack developer who builds web applications with Python, JavaScript, React, and Django. 
-                I work on both frontend and backend, enjoy solving problems, and like learning new tech as needed.
+                Full-stack developer and analyst focused on building impactful, user-first solutions.
+                With a foundation in Python, JavaScript, React, and Django, I apply a data-informed, backend-solid, and frontend-polished approach to development. My path from operational leadership and government service to software engineering has shaped my mission: deliver tools that solve real-world problems, fast and clean.
               </p>
             </div>
 
