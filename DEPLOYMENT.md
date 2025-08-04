@@ -1,8 +1,8 @@
 # Deployment Guide
 
-This guide will help you deploy your portfolio website to replace your current GitHub Pages site.
+How to deploy this portfolio website.
 
-## 🚀 Quick Deployment Options
+## Deployment Options
 
 ### Option 1: GitHub Pages + Vercel (Recommended)
 

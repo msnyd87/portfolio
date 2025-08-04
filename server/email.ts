@@ -18,15 +18,15 @@ export async function sendEmail(options: EmailOptions): Promise<boolean> {
     }
 
     // If no API keys are provided, just log the message
-    console.log('📧 Email would be sent to:', options.to);
-    console.log('📧 Subject:', options.subject);
-    console.log('📧 Message:', options.text);
-    console.log('💡 To enable actual email sending:');
-    console.log('   - For Resend: Set RESEND_API_KEY (easiest - get free key at resend.com)');
-    console.log('   - For Mailgun: Set MAILGUN_API_KEY and MAILGUN_DOMAIN');
+    console.log('Email would be sent to:', options.to);
+    console.log('Subject:', options.subject);
+    console.log('Message:', options.text);
+    console.log('To enable email sending:');
+    console.log('  - Set RESEND_API_KEY (get free key at resend.com)');
+    console.log('  - Or set MAILGUN_API_KEY and MAILGUN_DOMAIN');
     return true;
   } catch (error) {
-    console.error('❌ Failed to send email:', error);
+    console.error('Failed to send email:', error);
     return false;
   }
 }
@@ -49,15 +49,15 @@ async function sendWithResend(options: EmailOptions): Promise<boolean> {
     });
 
     if (response.ok) {
-      console.log('✅ Email sent successfully via Resend to:', options.to);
+      console.log('Email sent via Resend to:', options.to);
       return true;
     } else {
       const error = await response.text();
-      console.error('❌ Resend API error:', error);
+      console.error('Resend API error:', error);
       return false;
     }
   } catch (error) {
-    console.error('❌ Resend sending failed:', error);
+    console.error('Resend sending failed:', error);
     return false;
   }
 }
@@ -82,15 +82,15 @@ async function sendWithMailgun(options: EmailOptions): Promise<boolean> {
     });
 
     if (response.ok) {
-      console.log('✅ Email sent successfully via Mailgun to:', options.to);
+      console.log('Email sent via Mailgun to:', options.to);
       return true;
     } else {
       const error = await response.text();
-      console.error('❌ Mailgun API error:', error);
+      console.error('Mailgun API error:', error);
       return false;
     }
   } catch (error) {
-    console.error('❌ Mailgun sending failed:', error);
+    console.error('Mailgun sending failed:', error);
     return false;
   }
 }

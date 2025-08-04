@@ -47,7 +47,7 @@ const projects: Project[] = [
     id: 1,
     title: "Halfway - MBTI Dating App",
     description:
-      "A matchmaking app built on MBTI personality types with algorithmic matching, real-time messaging, and location-based features for finding compatible partners.",
+      "Dating app that matches people based on MBTI personality types. Has real-time chat and location features.",
     image:
       "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300",
     techStack: ["React", "FastAPI", "PostgreSQL", "JavaScript"],
@@ -58,7 +58,7 @@ const projects: Project[] = [
     id: 2,
     title: "WTO Alert Filter",
     description:
-      "Python automation tool that filters WTO notification Excel exports for animal-related trade alerts, streamlining USDA analysis workflows.",
+      "Python script that filters WTO trade notifications from Excel files to find animal-related alerts for USDA.",
     image:
       "https://images.unsplash.com/photo-1586953208448-b95a79798f07?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300",
     techStack: ["Python", "Pandas", "Excel", "Data Processing"],
@@ -69,7 +69,7 @@ const projects: Project[] = [
     id: 3,
     title: "CarCar - Auto Management System",
     description:
-      "Microservices-based automobile dealership management system with inventory tracking, sales management, and service scheduling capabilities.",
+      "Car dealership management system built with microservices. Tracks inventory, sales, and service appointments.",
     image:
       "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300",
     techStack: ["React", "Django", "PostgreSQL", "Docker"],
@@ -80,7 +80,7 @@ const projects: Project[] = [
     id: 4,
     title: "Task Management System",
     description:
-      "Django-based task and project management application with user authentication, project organization, and comprehensive task tracking features.",
+      "Task management app with user auth, project organization, and team collaboration. Built with Django.",
     image:
       "https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300",
     techStack: ["Django", "Python", "SQLite", "HTML"],
@@ -91,7 +91,7 @@ const projects: Project[] = [
     id: 5,
     title: "Scrumptious Recipes",
     description:
-      "Django recipe management web application with user authentication, recipe creation, and personal recipe collection management features.",
+      "Recipe management app where users can create and save their own recipes. Built with Django.",
     image:
       "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300",
     techStack: ["Django", "Python", "SQLite", "HTML"],
@@ -102,7 +102,7 @@ const projects: Project[] = [
     id: 6,
     title: "Conference Management System",
     description:
-      "Microservices architecture for managing conferences, attendees, and presentations with Django backend and React frontend integration.",
+      "Conference management system for tracking attendees and presentations. Django backend with React frontend.",
     image:
       "https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300",
     techStack: ["Django", "React", "PostgreSQL", "Docker"],
@@ -277,12 +277,11 @@ export default function Portfolio() {
                 Matt Snyder
               </h1>
               <h2 className="text-2xl md:text-3xl text-slate-300 mb-6">
-                Dynamic Full-Stack Engineer 
+                Full-Stack Developer
               </h2>
               <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
-                Committed to driving innovation through comprehensive understanding of front-end and back-end technologies, 
-                with a passion for user-centric design and a penchant for continuous learning. 
-                Specializing in Python, JavaScript, React, Django, and modern web technologies.
+                Full-stack developer who builds web applications with Python, JavaScript, React, and Django. 
+                I work on both frontend and backend, enjoy solving problems, and like learning new tech as needed.
               </p>
             </div>
 
@@ -334,8 +333,7 @@ export default function Portfolio() {
               Featured Projects
             </h2>
             <p className="text-xl text-slate-400 max-w-2xl mx-auto">
-              A collection of my recent work showcasing various technologies and
-              problem-solving approaches.
+              Some projects I've built recently using different tech stacks.
             </p>
           </div>
 
@@ -416,7 +414,7 @@ export default function Portfolio() {
               </h2>
               <p className="text-xl text-slate-400 max-w-2xl mx-auto">
                 Have a project in mind? I'd love to hear about it. Send me a
-                message and let's create something amazing.
+                message and let's work on something together.
               </p>
             </div>
 
