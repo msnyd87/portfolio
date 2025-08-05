@@ -171,7 +171,7 @@ export default function Portfolio() {
         setSubmitStatus("error");
       }
     } catch (error) {
-      console.error('Form submission error:', error);
+      console.error("Form submission error:", error);
       setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
@@ -232,7 +232,7 @@ export default function Portfolio() {
                 onClick={() => scrollToSection("projects")}
                 className="block w-full text-left text-slate-300 hover:text-blue-400 transition-colors duration-300 py-2"
               >
-                Projects
+                PROJECTS
               </button>
               <button
                 onClick={() => scrollToSection("contact")}
