@@ -1,0 +1,155 @@
+To https://github.com/matthewsnyder263/portfolio.git
+   ceee56a..23421e7  main -> main
+PS C:\Users\msnyd\code\portfolio> git push origin main
+Everything up-to-date
+PS C:\Users\msnyd\code\portfolio> vercel --prod
+Vercel CLI 44.7.2
+Error: The functions property cannot be used in conjunction with the builds property. Please remove one of them.
+Learn More: https://vercel.link/functions-and-builds
+PS C:\Users\msnyd\code\portfolio>
+
+
+ChatGPT said:
+You're almost there — the last error is caused by having both functions and builds defined in your vercel.json file, which Vercel doesn't allow.
+
+✅ Fix Instructions
+Open vercel.json (in your root project directory).
+
+Remove one of the conflicting properties, based on what you're actually using.
+
+If you're using Next.js, React, or another frontend-only framework:
+➤ Remove the functions block.
+
+If you're deploying a custom backend API (like api/contact.ts), you likely don’t need the builds block, and should remove it instead.
+
+✅ Example Fix: Remove builds (keep functions)
+Here’s how your vercel.json should look if you're using functions:
+
+json
+Copy
+Edit
+{
+  "functions": {
+    "api/**/*.ts": {
+      "runtime": "vercel-edge@2.5.2"
+    }
+  }
+}
+✅ Example Fix: Remove functions (keep builds)
+If you’re only doing a frontend build (e.g., using Vite or Next.js), your file might look like:
+
+json
+Copy
+Edit
+{
+  "builds": [
+    { "src": "package.json", "use": "@vercel/node" }
+  ]
+}
+But in most modern frontend apps using frameworks like Vite/React, you don't need this at all.
+
+🛠️ After the Fix:
+Once you fix vercel.json, redeploy:
+
+bash
+Copy
+Edit
+vercel --prod
+Let me know which one you’re using (functions, builds, or neither) and I’ll help you trim the file to fit.
+
+
+
+
+
+
+You said:
+.
+
+
+
+2/2
+
+ChatGPT said:
+Looks like you pinged — if you're ready, send over your current vercel.json contents, and I’ll tell you exactly what to remove or keep so you can finish your deploy cleanly.
+
+Or if you're not sure which part of the stack you're actually using (e.g., custom API routes vs just a frontend build), I can help you sort that out too. Just let me know.
+
+
+
+
+
+
+You said:
+mine looks like this:
+
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ],
+  "functions": {
+    "api/contact.ts": {
+      "maxDuration": 10
+    }
+  }
+}
+
+
+ChatGPT said:
+Thanks — now the error makes perfect sense.
+
+You're using both "builds" and "functions" in your vercel.json, but Vercel doesn’t allow both at the same time. You need to pick one approach, based on what your project is doing.
+
+✅ Recommended Fix (based on your project):
+Since you’re using a Vite static frontend build (distDir: "dist") and also have an API route (api/contact.ts), the proper setup is:
+
+json
+Copy
+Edit
+{
+  "version": 2,
+  "functions": {
+    "api/contact.ts": {
+      "maxDuration": 10
+    }
+  },
+  "builds": [
+    {
+      "src": "vite.config.ts",
+      "use": "@vercel/vite"
+    }
+  ]
+}
+✅ Use @vercel/vite instead of @vercel/static-build when you're using Vite and API routes.
+
+🔁 Alternative (if you’re not using serverless functions):
+If api/contact.ts isn't actually being run as a Vercel function (e.g., you’re using an external backend), then you can remove the "functions" block entirely:
+
+json
+Copy
+Edit
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ]
+}
+Let me know which direction you want, and I’ll confirm the final config for you.
+
+
+
+
+
+
