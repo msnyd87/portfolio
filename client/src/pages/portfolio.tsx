@@ -2,12 +2,18 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Menu,
   Github,
   Linkedin,
   ExternalLink,
   ChevronDown,
+  Mail,
+  Phone,
+  MapPin,
+  Send,
 } from "lucide-react";
 import profilePhoto from "@assets/linkedinphoto_1754259422656.jpeg";
 
@@ -125,6 +131,50 @@ const techStackColors: Record<string, string> = {
 
 export default function Portfolio() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus("idle");
+
+    try {
+      const response = await fetch("https://formsubmit.co/msnyd87@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...formData,
+          _subject: "New Portfolio Contact Form Submission",
+          _captcha: "false",
+          _template: "table",
+        }),
+      });
+
+      if (response.ok) {
+        setSubmitStatus("success");
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        setSubmitStatus("error");
+      }
+    } catch (error) {
+      setSubmitStatus("error");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -154,7 +204,12 @@ export default function Portfolio() {
               >
                 Projects
               </button>
-
+              <button
+                onClick={() => scrollToSection("contact")}
+                className="text-slate-300 hover:text-blue-400 transition-colors duration-300"
+              >
+                Contact
+              </button>
             </div>
             <button
               className="md:hidden text-slate-300 hover:text-blue-400"
@@ -177,7 +232,12 @@ export default function Portfolio() {
               >
                 Projects
               </button>
-
+              <button
+                onClick={() => scrollToSection("contact")}
+                className="block w-full text-left text-slate-300 hover:text-blue-400 transition-colors duration-300 py-2"
+              >
+                Contact
+              </button>
             </div>
           )}
         </div>
@@ -252,7 +312,7 @@ export default function Portfolio() {
                 <Github className="h-6 w-6" />
               </a>
               <a
-                href="https://www.linkedin.com/in/msnyd87/"
+                href="https://linkedin.com/in/matthew-snyder-565662230"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-slate-400 hover:text-blue-400 text-2xl transition-colors duration-300"
@@ -343,7 +403,187 @@ export default function Portfolio() {
         </div>
       </section>
 
+      {/* Contact Section */}
+      <section id="contact" className="py-20 bg-slate-900">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-violet-500 bg-clip-text text-transparent">
+              Get In Touch
+            </h2>
+            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+              Ready to work together? Drop me a message and let's discuss your project.
+            </p>
+          </div>
 
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+            {/* Contact Info */}
+            <div className="space-y-8">
+              <div>
+                <h3 className="text-2xl font-bold mb-6 text-slate-100">
+                  Let's Connect
+                </h3>
+                <p className="text-slate-400 mb-8">
+                  I'm always interested in new opportunities and collaborations. Whether you have a project in mind or just want to chat about technology, feel free to reach out!
+                </p>
+              </div>
+
+              <div className="space-y-6">
+                <div className="flex items-center space-x-4">
+                  <div className="bg-blue-500/20 p-3 rounded-lg">
+                    <Mail className="h-6 w-6 text-blue-400" />
+                  </div>
+                  <div>
+                    <p className="text-slate-300 font-semibold">Email</p>
+                    <a 
+                      href="mailto:msnyd87@gmail.com"
+                      className="text-slate-400 hover:text-blue-400 transition-colors duration-300"
+                    >
+                      msnyd87@gmail.com
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-center space-x-4">
+                  <div className="bg-blue-500/20 p-3 rounded-lg">
+                    <Phone className="h-6 w-6 text-blue-400" />
+                  </div>
+                  <div>
+                    <p className="text-slate-300 font-semibold">Phone</p>
+                    <a 
+                      href="tel:+13238443638"
+                      className="text-slate-400 hover:text-blue-400 transition-colors duration-300"
+                    >
+                      +1 (323) 844-3638
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-center space-x-4">
+                  <div className="bg-blue-500/20 p-3 rounded-lg">
+                    <MapPin className="h-6 w-6 text-blue-400" />
+                  </div>
+                  <div>
+                    <p className="text-slate-300 font-semibold">Location</p>
+                    <p className="text-slate-400">Sparks, NV</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Social Links */}
+              <div className="pt-8 border-t border-slate-700">
+                <h4 className="text-lg font-semibold mb-4 text-slate-300">
+                  Follow Me
+                </h4>
+                <div className="flex space-x-4">
+                  <a
+                    href="https://github.com/matthewsnyder263"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-slate-800 p-3 rounded-lg hover:bg-slate-700 transition-colors duration-300 group"
+                  >
+                    <Github className="h-6 w-6 text-slate-400 group-hover:text-blue-400" />
+                  </a>
+                  <a
+                    href="https://linkedin.com/in/matthew-snyder-565662230"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-slate-800 p-3 rounded-lg hover:bg-slate-700 transition-colors duration-300 group"
+                  >
+                    <Linkedin className="h-6 w-6 text-slate-400 group-hover:text-blue-400" />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Contact Form */}
+            <div className="bg-slate-800 p-8 rounded-xl border border-slate-700">
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium text-slate-300 mb-2">
+                    Name
+                  </label>
+                  <Input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    required
+                    className="bg-slate-700 border-slate-600 text-slate-100 focus:border-blue-400"
+                    placeholder="Your full name"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-slate-300 mb-2">
+                    Email
+                  </label>
+                  <Input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
+                    className="bg-slate-700 border-slate-600 text-slate-100 focus:border-blue-400"
+                    placeholder="your.email@example.com"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="message" className="block text-sm font-medium text-slate-300 mb-2">
+                    Message
+                  </label>
+                  <Textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    required
+                    rows={5}
+                    className="bg-slate-700 border-slate-600 text-slate-100 focus:border-blue-400 resize-none"
+                    placeholder="Tell me about your project or just say hello..."
+                  />
+                </div>
+
+                {submitStatus === "success" && (
+                  <div className="bg-green-500/20 border border-green-500/30 rounded-lg p-4">
+                    <p className="text-green-400 text-sm">
+                      Thanks for your message! I'll get back to you soon.
+                    </p>
+                  </div>
+                )}
+
+                {submitStatus === "error" && (
+                  <div className="bg-red-500/20 border border-red-500/30 rounded-lg p-4">
+                    <p className="text-red-400 text-sm">
+                      Something went wrong. Please try again or email me directly.
+                    </p>
+                  </div>
+                )}
+
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 text-white font-semibold py-3 rounded-lg transition-all duration-300 transform hover:scale-105"
+                >
+                  {isSubmitting ? (
+                    <div className="flex items-center justify-center space-x-2">
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                      <span>Sending...</span>
+                    </div>
+                  ) : (
+                    <div className="flex items-center justify-center space-x-2">
+                      <Send className="h-4 w-4" />
+                      <span>Send Message</span>
+                    </div>
+                  )}
+                </Button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Footer */}
       <footer className="py-12 bg-slate-950 border-t border-slate-800">
