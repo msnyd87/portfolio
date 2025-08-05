@@ -154,26 +154,38 @@ export default function Portfolio() {
     setSubmitStatus("idle");
 
     try {
-      const formDataToSend = new FormData();
-      formDataToSend.append('name', formData.name);
-      formDataToSend.append('email', formData.email);
-      formDataToSend.append('message', formData.message);
-      formDataToSend.append('_subject', 'New Portfolio Contact Form Submission');
-      formDataToSend.append('_captcha', 'false');
-      formDataToSend.append('_template', 'table');
+      // Use a direct HTML form submission approach for FormSubmit.co
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = 'https://formsubmit.co/msnyd87@gmail.com';
+      form.target = '_blank';
 
-      const response = await fetch("https://formsubmit.co/msnyd87@gmail.com", {
-        method: "POST",
-        body: formDataToSend,
+      // Add form fields
+      const fields = {
+        name: formData.name,
+        email: formData.email,
+        message: formData.message,
+        _subject: 'New Portfolio Contact Form Submission',
+        _captcha: 'false',
+        _template: 'table'
+      };
+
+      Object.entries(fields).forEach(([name, value]) => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = name;
+        input.value = value;
+        form.appendChild(input);
       });
 
-      if (response.ok) {
-        setSubmitStatus("success");
-        setFormData({ name: "", email: "", message: "" });
-      } else {
-        setSubmitStatus("error");
-      }
+      document.body.appendChild(form);
+      form.submit();
+      document.body.removeChild(form);
+
+      setSubmitStatus("success");
+      setFormData({ name: "", email: "", message: "" });
     } catch (error) {
+      console.error('Form submission error:', error);
       setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
@@ -504,7 +516,11 @@ export default function Portfolio() {
 
             {/* Contact Form */}
             <div className="bg-slate-800 p-8 rounded-xl border border-slate-700">
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form 
+                action="https://formsubmit.co/msnyd87@gmail.com" 
+                method="POST" 
+                className="space-y-6"
+              >
                 <div>
                   <label
                     htmlFor="name"
@@ -516,8 +532,6 @@ export default function Portfolio() {
                     type="text"
                     id="name"
                     name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
                     required
                     className="bg-slate-700 border-slate-600 text-slate-100 focus:border-blue-400"
                     placeholder="Your full name"
@@ -535,8 +549,6 @@ export default function Portfolio() {
                     type="email"
                     id="email"
                     name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
                     required
                     className="bg-slate-700 border-slate-600 text-slate-100 focus:border-blue-400"
                     placeholder="your.email@example.com"
@@ -553,14 +565,17 @@ export default function Portfolio() {
                   <Textarea
                     id="message"
                     name="message"
-                    value={formData.message}
-                    onChange={handleInputChange}
                     required
                     rows={5}
                     className="bg-slate-700 border-slate-600 text-slate-100 focus:border-blue-400 resize-none"
                     placeholder="Tell me about your project or just say hello..."
                   />
                 </div>
+
+                {/* Hidden FormSubmit.co fields */}
+                <input type="hidden" name="_subject" value="New Portfolio Contact Form Submission" />
+                <input type="hidden" name="_captcha" value="false" />
+                <input type="hidden" name="_template" value="table" />
 
                 {submitStatus === "success" && (
                   <div className="bg-green-500/20 border border-green-500/30 rounded-lg p-4">
@@ -581,20 +596,12 @@ export default function Portfolio() {
 
                 <Button
                   type="submit"
-                  disabled={isSubmitting}
                   className="w-full bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 text-white font-semibold py-3 rounded-lg transition-all duration-300 transform hover:scale-105"
                 >
-                  {isSubmitting ? (
-                    <div className="flex items-center justify-center space-x-2">
-                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                      <span>Sending...</span>
-                    </div>
-                  ) : (
-                    <div className="flex items-center justify-center space-x-2">
-                      <Send className="h-4 w-4" />
-                      <span>Send Message</span>
-                    </div>
-                  )}
+                  <div className="flex items-center justify-center space-x-2">
+                    <Send className="h-4 w-4" />
+                    <span>Send Message</span>
+                  </div>
                 </Button>
               </form>
             </div>
