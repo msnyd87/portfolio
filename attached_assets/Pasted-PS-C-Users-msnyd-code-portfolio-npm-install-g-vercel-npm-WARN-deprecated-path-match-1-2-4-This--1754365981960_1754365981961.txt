@@ -1,0 +1,137 @@
+PS C:\Users\msnyd\code\portfolio> npm install -g vercel
+npm WARN deprecated path-match@1.2.4: This package is archived and no longer maintained. For support, visit https://github.com/expressjs/express/discussions
+
+added 236 packages in 12s
+
+26 packages are looking for funding
+  run `npm fund` for details
+PS C:\Users\msnyd\code\portfolio> vercel --prod
+Vercel CLI 44.7.2
+> NOTE: The Vercel CLI now collects telemetry regarding usage of the CLI.
+> This information is used to shape the CLI roadmap and prioritize features.
+> You can learn more, including how to opt-out if you'd not like to participate in this program, by visiting the following URL:
+> https://vercel.com/docs/cli/about-telemetry
+? Set up and deploy “~\code\portfolio”? yes
+Error: The specified token is not valid. Use `vercel login` to generate a new token.
+PS C:\Users\msnyd\code\portfolio> vercel login
+Vercel CLI 44.7.2
+? Log in to Vercel Continue with GitHub
+> Please visit the following URL in your web browser:
+> Success! GitHub authentication complete for msnyd87@gmail.com
+Congratulations! You are now logged in. In order to deploy something, run `vercel`.
+💡  Connect your Git Repositories to deploy every branch push automatically (https://vercel.link/git).
+PS C:\Users\msnyd\code\portfolio> vercel --prod
+Vercel CLI 44.7.2
+? Set up and deploy “~\code\portfolio”? yes
+? Which scope should contain your project? Matt Snyder 's projects
+? Found project “matt-snyder-s-projects/portfolio”. Link to it? yes
+🔗  Linked to matt-snyder-s-projects/portfolio (created .vercel and added it to .gitignore)
+🔍  Inspect: https://vercel.com/matt-snyder-s-projects/portfolio/DEsnYSxJ5NH9xVwX38gTEvsYp1BP [3s]
+✅  Production: https://portfolio-1dgtl3ide-matt-snyder-s-projects.vercel.app [3s]
+2025-08-05T03:47:21.864Z  Running build in Washington, D.C., USA (East) – iad1
+2025-08-05T03:47:21.864Z  Build machine configuration: 2 cores, 8 GB
+2025-08-05T03:47:21.886Z  Retrieving list of deployment files...
+2025-08-05T03:47:22.450Z  Downloading 167 deployment files...
+2025-08-05T03:47:24.155Z  Restored build cache from previous deployment (8h4FzQ71MhJFctuBWve1XHRpfYAq)
+2025-08-05T03:47:26.362Z  Running "vercel build"
+2025-08-05T03:47:26.881Z  Vercel CLI 44.6.4
+2025-08-05T03:47:28.902Z  Running "install" command: `npm install `...
+2025-08-05T03:47:31.409Z
+2025-08-05T03:47:31.410Z  up to date, audited 503 packages in 2s
+2025-08-05T03:47:31.410Z
+2025-08-05T03:47:31.410Z  66 packages are looking for funding
+2025-08-05T03:47:31.410Z    run `npm fund` for details
+2025-08-05T03:47:31.438Z
+2025-08-05T03:47:31.438Z  11 vulnerabilities (3 low, 8 moderate)
+2025-08-05T03:47:31.438Z
+2025-08-05T03:47:31.438Z  To address issues that do not require attention, run:
+2025-08-05T03:47:31.438Z    npm audit fix
+2025-08-05T03:47:31.439Z
+2025-08-05T03:47:31.439Z  To address all issues (including breaking changes), run:
+2025-08-05T03:47:31.439Z    npm audit fix --force
+2025-08-05T03:47:31.439Z
+2025-08-05T03:47:31.439Z  Run `npm audit` for details.
+2025-08-05T03:47:31.714Z
+2025-08-05T03:47:31.716Z  > rest-express@1.0.0 build
+2025-08-05T03:47:31.717Z  > vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist
+2025-08-05T03:47:31.717Z
+2025-08-05T03:47:32.013Z  vite v5.4.19 building for production...
+2025-08-05T03:47:32.066Z  transforming...
+2025-08-05T03:47:32.437Z  Browserslist: browsers data (caniuse-lite) is 10 months old. Please run:
+2025-08-05T03:47:32.438Z    npx update-browserslist-db@latest
+2025-08-05T03:47:32.438Z    Why you should do it regularly: https://github.com/browserslist/update-db#readme
+2025-08-05T03:47:36.851Z  ✓ 1777 modules transformed.
+2025-08-05T03:47:37.168Z  rendering chunks...
+2025-08-05T03:47:37.175Z  computing gzip size...
+2025-08-05T03:47:37.193Z  ../dist/index.html                                          1.19 kB │ gzip:   0.65 kB
+2025-08-05T03:47:37.194Z  ../dist/assets/linkedinphoto_1754259422656-BBMFYOE3.jpeg  119.40 kB
+2025-08-05T03:47:37.194Z  ../dist/assets/index-BvINfCVN.css                          65.11 kB │ gzip:  11.41 kB
+2025-08-05T03:47:37.194Z  ../dist/assets/index-DWyWXEEW.js                          412.39 kB │ gzip: 127.01 kB
+2025-08-05T03:47:37.196Z  ✓ built in 5.16s
+2025-08-05T03:47:37.253Z
+2025-08-05T03:47:37.253Z    dist/index.js  10.9kb
+2025-08-05T03:47:37.253Z
+2025-08-05T03:47:37.253Z  ⚡ Done in 9ms
+2025-08-05T03:47:37.324Z  Build Completed in /vercel/output [8s]
+2025-08-05T03:47:37.345Z  Deploying outputs...
+2025-08-05T03:47:38.612Z  Deployment completed
+PS C:\Users\msnyd\code\portfolio> vercel --prod
+Vercel CLI 44.7.2
+🔍  Inspect: https://vercel.com/matt-snyder-s-projects/portfolio/HZL8CuKaXem7YHS11HxQGVMktqh8 [828ms]
+✅  Production: https://portfolio-mo9cer2f0-matt-snyder-s-projects.vercel.app [828ms]
+2025-08-05T03:49:28.227Z  Running build in Washington, D.C., USA (East) – iad1
+2025-08-05T03:49:28.227Z  Build machine configuration: 2 cores, 8 GB
+2025-08-05T03:49:28.272Z  Retrieving list of deployment files...
+2025-08-05T03:49:28.802Z  Downloading 167 deployment files...
+2025-08-05T03:49:31.010Z  Restored build cache from previous deployment (DEsnYSxJ5NH9xVwX38gTEvsYp1BP)
+2025-08-05T03:49:33.052Z  Running "vercel build"
+2025-08-05T03:49:33.518Z  Vercel CLI 44.6.4
+2025-08-05T03:49:34.143Z  Running "install" command: `npm install `...
+2025-08-05T03:49:36.485Z
+2025-08-05T03:49:36.486Z  up to date, audited 503 packages in 2s
+2025-08-05T03:49:36.486Z
+2025-08-05T03:49:36.486Z  66 packages are looking for funding
+2025-08-05T03:49:36.487Z    run `npm fund` for details
+2025-08-05T03:49:36.517Z
+2025-08-05T03:49:36.517Z  11 vulnerabilities (3 low, 8 moderate)
+2025-08-05T03:49:36.517Z
+2025-08-05T03:49:36.518Z  To address issues that do not require attention, run:
+2025-08-05T03:49:36.518Z    npm audit fix
+2025-08-05T03:49:36.518Z
+2025-08-05T03:49:36.518Z  To address all issues (including breaking changes), run:
+2025-08-05T03:49:36.518Z    npm audit fix --force
+2025-08-05T03:49:36.519Z
+2025-08-05T03:49:36.519Z  Run `npm audit` for details.
+2025-08-05T03:49:36.782Z
+2025-08-05T03:49:36.782Z  > rest-express@1.0.0 build
+2025-08-05T03:49:36.783Z  > vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist
+2025-08-05T03:49:36.783Z
+2025-08-05T03:49:37.197Z  vite v5.4.19 building for production...
+2025-08-05T03:49:37.511Z  transforming...
+2025-08-05T03:49:37.575Z  Browserslist: browsers data (caniuse-lite) is 10 months old. Please run:
+2025-08-05T03:49:37.575Z    npx update-browserslist-db@latest
+2025-08-05T03:49:37.576Z    Why you should do it regularly: https://github.com/browserslist/update-db#readme
+PS C:\Users\msnyd\code\portfolio> git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   .gitignore
+
+no changes added to commit (use "git add" and/or "git commit -a")
+PS C:\Users\msnyd\code\portfolio> git add .
+PS C:\Users\msnyd\code\portfolio> git commit -m "Final fixes before redeploy"
+[main cfc5f39] Final fixes before redeploy
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+PS C:\Users\msnyd\code\portfolio> git push origin main
+To https://github.com/matthewsnyder263/portfolio.git
+ ! [rejected]        main -> main (fetch first)
+error: failed to push some refs to 'https://github.com/matthewsnyder263/portfolio.git'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+PS C:\Users\msnyd\code\portfolio>
