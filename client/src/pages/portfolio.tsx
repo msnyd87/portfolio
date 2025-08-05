@@ -396,7 +396,7 @@ export default function Portfolio() {
           <div className="text-center mt-12">
             <Button
               variant="outline"
-              className="border-blue-500 text-blue-400 px-8 py-3 rounded-lg font-semibold hover:bg-blue-500 hover:text-white transition-all duration-300"
+              className="border-slate-600 bg-slate-100 text-slate-900 px-8 py-3 rounded-lg font-semibold hover:border-blue-400 hover:bg-blue-50 hover:text-blue-600 transition-all duration-300"
               size="lg"
               onClick={() => window.open("https://github.com/matthewsnyder263", "_blank")}
             >
