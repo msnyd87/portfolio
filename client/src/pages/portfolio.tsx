@@ -1,35 +1,19 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
-import { insertContactMessageSchema } from "@shared/schema";
-import type { InsertContactMessage } from "@shared/schema";
-import { apiRequest } from "@/lib/queryClient";
-import { useToast } from "@/hooks/use-toast";
-import emailjs from '@emailjs/browser';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Badge } from "@/components/ui/badge";
-import {
   Menu,
+  Github,
+  Linkedin,
+  ExternalLink,
+  ChevronDown,
   Mail,
   Phone,
   MapPin,
-  Github,
-  Linkedin,
-  Twitter,
-  ExternalLink,
-  ChevronDown,
+  Send,
 } from "lucide-react";
 import profilePhoto from "@assets/linkedinphoto_1754259422656.jpeg";
 
@@ -147,86 +131,51 @@ const techStackColors: Record<string, string> = {
 
 export default function Portfolio() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { toast } = useToast();
-
-  const form = useForm<InsertContactMessage>({
-    resolver: zodResolver(insertContactMessageSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      message: "",
-    },
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<
+    "idle" | "success" | "error"
+  >("idle");
 
-  const contactMutation = useMutation({
-    mutationFn: async (data: InsertContactMessage) => {
-      // Try FormSubmit.co first, fallback to hidden form submission for CORS issues
-      try {
-        const formData = new FormData();
-        formData.append('name', data.name);
-        formData.append('email', data.email);
-        formData.append('message', data.message);
-        formData.append('_subject', `Portfolio Contact from ${data.name}`);
-        formData.append('_captcha', 'false');
-        formData.append('_next', window.location.origin);
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
-        const response = await fetch('https://formsubmit.co/msnyd87@gmail.com', {
-          method: 'POST',
-          body: formData
-        });
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus("idle");
 
-        if (response.ok) {
-          return { success: true, message: "Message sent successfully! (Email may take a few minutes to arrive)" };
-        }
-        throw new Error('FormSubmit fetch failed');
-      } catch (error) {
-        // Fallback: Create hidden form and submit (avoids CORS issues)
-        const form = document.createElement('form');
-        form.action = 'https://formsubmit.co/msnyd87@gmail.com';
-        form.method = 'POST';
-        form.style.display = 'none';
-        
-        const fields = [
-          { name: 'name', value: data.name },
-          { name: 'email', value: data.email },
-          { name: 'message', value: data.message },
-          { name: '_subject', value: `Portfolio Contact from ${data.name}` },
-          { name: '_captcha', value: 'false' },
-          { name: '_next', value: window.location.origin }
-        ];
-        
-        fields.forEach(field => {
-          const input = document.createElement('input');
-          input.type = 'hidden';
-          input.name = field.name;
-          input.value = field.value;
-          form.appendChild(input);
-        });
-        
-        document.body.appendChild(form);
-        form.submit();
-        
-        return { success: true, message: "Message sent successfully! (Email may take a few minutes to arrive)" };
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        setSubmitStatus("success");
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        setSubmitStatus("error");
       }
-    },
-    onSuccess: (data) => {
-      toast({
-        title: "Message sent!",
-        description: "Thanks for your message! I'll get back to you soon.",
-      });
-      form.reset();
-    },
-    onError: (error) => {
-      toast({
-        title: "Error",
-        description: "Failed to send message. Please try again.",
-        variant: "destructive",
-      });
-    },
-  });
-
-  const onSubmit = (data: InsertContactMessage) => {
-    contactMutation.mutate(data);
+    } catch (error) {
+      console.error("Form submission error:", error);
+      setSubmitStatus("error");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const scrollToSection = (sectionId: string) => {
@@ -283,7 +232,7 @@ export default function Portfolio() {
                 onClick={() => scrollToSection("projects")}
                 className="block w-full text-left text-slate-300 hover:text-blue-400 transition-colors duration-300 py-2"
               >
-                Projects
+                PROJECTS
               </button>
               <button
                 onClick={() => scrollToSection("contact")}
@@ -327,13 +276,13 @@ export default function Portfolio() {
                 Full-Stack Developer
               </h2>
               <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
-                Full-stack developer and analyst focused on building impactful,
-                user-first solutions. With a foundation in Python, JavaScript,
-                React, and Django, I apply a data-informed, backend-solid, and
-                frontend-polished approach to development. My path from
-                operational leadership and government service to software
-                engineering has shaped my mission: deliver tools that solve
-                real-world problems, fast and clean.
+                I’m a full-stack developer and analyst focused on building
+                user-first tools with Python, JavaScript, React, and Django. I
+                care about making things work simply and reliably, using data,
+                automation, and thoughtful design to solve real-world problems.
+                My background in operations and government gave me a strong
+                appreciation for tools that improve efficiency and support
+                informed decision-making.
               </p>
             </div>
 
@@ -348,7 +297,7 @@ export default function Portfolio() {
               <Button
                 onClick={() => scrollToSection("contact")}
                 variant="outline"
-                className="border-slate-600 text-slate-300 px-8 py-3 rounded-lg font-semibold hover:border-blue-400 hover:text-blue-400 transition-all duration-300"
+                className="border-slate-600 bg-slate-100 text-slate-900 px-8 py-3 rounded-lg font-semibold hover:border-blue-400 hover:bg-blue-50 hover:text-blue-600 transition-all duration-300"
                 size="lg"
               >
                 Get In Touch
@@ -365,7 +314,7 @@ export default function Portfolio() {
                 <Github className="h-6 w-6" />
               </a>
               <a
-                href="https://www.linkedin.com/in/msnyd87/"
+                href="https://linkedin.com/in/matthew-snyder-565662230"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-slate-400 hover:text-blue-400 text-2xl transition-colors duration-300"
@@ -457,175 +406,195 @@ export default function Portfolio() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-24 bg-slate-900">
+      <section id="contact" className="py-20 bg-slate-900">
         <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                Let's Work Together
-              </h2>
-              <p className="text-xl text-slate-400 max-w-2xl mx-auto">
-                Have a project in mind? I'd love to hear about it. Send me a
-                message and let's work on something together.
-              </p>
-            </div>
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-violet-500 bg-clip-text text-transparent">
+              Get In Touch
+            </h2>
+            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+              Ready to work together? Drop me a message and let's discuss your
+              project.
+            </p>
+          </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-              {/* Contact Information */}
-              <div className="space-y-8">
-                <div>
-                  <h3 className="text-2xl font-bold mb-6">Get In Touch</h3>
-                  <div className="space-y-4">
-                    <div className="flex items-center space-x-4">
-                      <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center">
-                        <Mail className="text-blue-400 h-5 w-5" />
-                      </div>
-                      <div>
-                        <p className="text-slate-300 font-semibold">Email</p>
-                        <p className="text-slate-400">msnyd87@gmail.com</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center space-x-4">
-                      <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center">
-                        <Phone className="text-blue-400 h-5 w-5" />
-                      </div>
-                      <div>
-                        <p className="text-slate-300 font-semibold">Phone</p>
-                        <p className="text-slate-400">+1 (323) 844-3638</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center space-x-4">
-                      <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center">
-                        <MapPin className="text-blue-400 h-5 w-5" />
-                      </div>
-                      <div>
-                        <p className="text-slate-300 font-semibold">Location</p>
-                        <p className="text-slate-400">Sparks, NV</p>
-                      </div>
-                    </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+            {/* Contact Info */}
+            <div className="space-y-8">
+              <div>
+                <h3 className="text-2xl font-bold mb-6 text-slate-100">
+                  Let's Connect
+                </h3>
+                <p className="text-slate-400 mb-8">
+                  I'm always interested in new opportunities and collaborations.
+                  Whether you have a project in mind or just want to chat about
+                  technology, feel free to reach out!
+                </p>
+              </div>
+
+              <div className="space-y-6">
+                <div className="flex items-center space-x-4">
+                  <div className="bg-blue-500/20 p-3 rounded-lg">
+                    <Mail className="h-6 w-6 text-blue-400" />
+                  </div>
+                  <div>
+                    <p className="text-slate-300 font-semibold">Email</p>
+                    <a
+                      href="mailto:msnyd87@gmail.com"
+                      className="text-slate-400 hover:text-blue-400 transition-colors duration-300"
+                    >
+                      msnyd87@gmail.com
+                    </a>
                   </div>
                 </div>
 
-                <div>
-                  <h4 className="text-lg font-semibold mb-4">Follow Me</h4>
-                  <div className="flex space-x-4">
+                <div className="flex items-center space-x-4">
+                  <div className="bg-blue-500/20 p-3 rounded-lg">
+                    <Phone className="h-6 w-6 text-blue-400" />
+                  </div>
+                  <div>
+                    <p className="text-slate-300 font-semibold">Phone</p>
                     <a
-                      href="https://github.com/matthewsnyder263/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center text-slate-400 hover:bg-blue-500 hover:text-white transition-all duration-300"
+                      href="tel:+13238443638"
+                      className="text-slate-400 hover:text-blue-400 transition-colors duration-300"
                     >
-                      <Github className="h-5 w-5" />
+                      +1 (323) 844-3638
                     </a>
-                    <a
-                      href="https://www.linkedin.com/in/msnyd87/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center text-slate-400 hover:bg-blue-500 hover:text-white transition-all duration-300"
-                    >
-                      <Linkedin className="h-5 w-5" />
-                    </a>
-                    {/* <a
-                      href="https://gitlab.com/msnyd87"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center text-slate-400 hover:bg-blue-500 hover:text-white transition-all duration-300"
-                    >
-                      <ExternalLink className="h-5 w-5" />
-                    </a>
-                    <a
-                      href="https://matthewsnyder263.github.io/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center text-slate-400 hover:bg-blue-500 hover:text-white transition-all duration-300"
-                    >
-                      <ExternalLink className="h-5 w-5" />
-                    </a> */}
+                  </div>
+                </div>
+
+                <div className="flex items-center space-x-4">
+                  <div className="bg-blue-500/20 p-3 rounded-lg">
+                    <MapPin className="h-6 w-6 text-blue-400" />
+                  </div>
+                  <div>
+                    <p className="text-slate-300 font-semibold">Location</p>
+                    <p className="text-slate-400">Sparks, NV</p>
                   </div>
                 </div>
               </div>
 
-              {/* Contact Form */}
-              <Card className="bg-slate-800 border-slate-700">
-                <CardContent className="p-8">
-                  <Form {...form}>
-                    <form
-                      onSubmit={form.handleSubmit(onSubmit)}
-                      className="space-y-6"
-                    >
-                      <FormField
-                        control={form.control}
-                        name="name"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className="text-sm font-medium text-slate-300">
-                              Name
-                            </FormLabel>
-                            <FormControl>
-                              <Input
-                                placeholder="Your Name"
-                                {...field}
-                                className="bg-slate-700 border-slate-600 text-slate-100 placeholder-slate-400 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20"
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="email"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className="text-sm font-medium text-slate-300">
-                              Email
-                            </FormLabel>
-                            <FormControl>
-                              <Input
-                                type="email"
-                                placeholder="your.email@example.com"
-                                {...field}
-                                className="bg-slate-700 border-slate-600 text-slate-100 placeholder-slate-400 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20"
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="message"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className="text-sm font-medium text-slate-300">
-                              Message
-                            </FormLabel>
-                            <FormControl>
-                              <Textarea
-                                placeholder="Tell me about your project..."
-                                rows={6}
-                                {...field}
-                                className="bg-slate-700 border-slate-600 text-slate-100 placeholder-slate-400 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 resize-none"
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <Button
-                        type="submit"
-                        className="w-full bg-gradient-to-r from-blue-500 to-violet-500 text-white py-3 px-6 rounded-lg font-semibold hover:shadow-lg hover:scale-105 transition-all duration-300"
-                        disabled={contactMutation.isPending}
-                        size="lg"
-                      >
-                        {contactMutation.isPending
-                          ? "Sending..."
-                          : "Send Message"}
-                      </Button>
-                    </form>
-                  </Form>
-                </CardContent>
-              </Card>
+              {/* Social Links */}
+              <div className="pt-8 border-t border-slate-700">
+                <h4 className="text-lg font-semibold mb-4 text-slate-300">
+                  Follow Me
+                </h4>
+                <div className="flex space-x-4">
+                  <a
+                    href="https://github.com/matthewsnyder263"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-slate-800 p-3 rounded-lg hover:bg-slate-700 transition-colors duration-300 group"
+                  >
+                    <Github className="h-6 w-6 text-slate-400 group-hover:text-blue-400" />
+                  </a>
+                  <a
+                    href="https://linkedin.com/in/matthew-snyder-565662230"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-slate-800 p-3 rounded-lg hover:bg-slate-700 transition-colors duration-300 group"
+                  >
+                    <Linkedin className="h-6 w-6 text-slate-400 group-hover:text-blue-400" />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Contact Form */}
+            <div className="bg-slate-800 p-8 rounded-xl border border-slate-700">
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div>
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-medium text-slate-300 mb-2"
+                  >
+                    Name
+                  </label>
+                  <Input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    required
+                    className="bg-slate-700 border-slate-600 text-slate-100 focus:border-blue-400"
+                    placeholder="Your full name"
+                  />
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-slate-300 mb-2"
+                  >
+                    Email
+                  </label>
+                  <Input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
+                    className="bg-slate-700 border-slate-600 text-slate-100 focus:border-blue-400"
+                    placeholder="your.email@example.com"
+                  />
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="message"
+                    className="block text-sm font-medium text-slate-300 mb-2"
+                  >
+                    Message
+                  </label>
+                  <Textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    required
+                    rows={5}
+                    className="bg-slate-700 border-slate-600 text-slate-100 focus:border-blue-400 resize-none"
+                    placeholder="Tell me about your project or just say hello..."
+                  />
+                </div>
+
+                {submitStatus === "success" && (
+                  <div className="bg-green-500/20 border border-green-500/30 rounded-lg p-4">
+                    <p className="text-green-400 text-sm">
+                      Thanks for your message! I'll get back to you soon.
+                    </p>
+                  </div>
+                )}
+
+                {submitStatus === "error" && (
+                  <div className="bg-red-500/20 border border-red-500/30 rounded-lg p-4">
+                    <p className="text-red-400 text-sm">
+                      Something went wrong. Please try again or email me
+                      directly.
+                    </p>
+                  </div>
+                )}
+
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 text-white font-semibold py-3 rounded-lg transition-all duration-300 transform hover:scale-105"
+                >
+                  {isSubmitting ? (
+                    <div className="flex items-center justify-center space-x-2">
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                      <span>Sending...</span>
+                    </div>
+                  ) : (
+                    <div className="flex items-center justify-center space-x-2">
+                      <Send className="h-4 w-4" />
+                      <span>Send Message</span>
+                    </div>
+                  )}
+                </Button>
+              </form>
             </div>
           </div>
         </div>
