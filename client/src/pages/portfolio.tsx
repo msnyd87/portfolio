@@ -137,11 +137,15 @@ export default function Portfolio() {
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+  const [submitStatus, setSubmitStatus] = useState<
+    "idle" | "success" | "error"
+  >("idle");
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -274,13 +278,13 @@ export default function Portfolio() {
                 Full-Stack Developer
               </h2>
               <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
-                Full-stack developer and analyst focused on building impactful,
-                user-first solutions. With a foundation in Python, JavaScript,
-                React, and Django, I apply a data-informed, backend-solid, and
-                frontend-polished approach to development. My path from
-                operational leadership and government service to software
-                engineering has shaped my mission: deliver tools that solve
-                real-world problems, fast and clean.
+                I’m a full-stack developer and analyst focused on building
+                user-first tools with Python, JavaScript, React, and Django. I
+                care about making things work simply and reliably, using data,
+                automation, and thoughtful design to solve real-world problems.
+                My background in operations and government gave me a strong
+                appreciation for tools that improve efficiency and support
+                informed decision-making.
               </p>
             </div>
 
@@ -295,7 +299,7 @@ export default function Portfolio() {
               <Button
                 onClick={() => scrollToSection("contact")}
                 variant="outline"
-                className="border-slate-600 text-slate-300 px-8 py-3 rounded-lg font-semibold hover:border-blue-400 hover:text-blue-400 transition-all duration-300"
+                className="border-slate-600 bg-slate-100 text-slate-900 px-8 py-3 rounded-lg font-semibold hover:border-blue-400 hover:bg-blue-50 hover:text-blue-600 transition-all duration-300"
                 size="lg"
               >
                 Get In Touch
@@ -411,7 +415,8 @@ export default function Portfolio() {
               Get In Touch
             </h2>
             <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-              Ready to work together? Drop me a message and let's discuss your project.
+              Ready to work together? Drop me a message and let's discuss your
+              project.
             </p>
           </div>
 
@@ -423,7 +428,9 @@ export default function Portfolio() {
                   Let's Connect
                 </h3>
                 <p className="text-slate-400 mb-8">
-                  I'm always interested in new opportunities and collaborations. Whether you have a project in mind or just want to chat about technology, feel free to reach out!
+                  I'm always interested in new opportunities and collaborations.
+                  Whether you have a project in mind or just want to chat about
+                  technology, feel free to reach out!
                 </p>
               </div>
 
@@ -434,7 +441,7 @@ export default function Portfolio() {
                   </div>
                   <div>
                     <p className="text-slate-300 font-semibold">Email</p>
-                    <a 
+                    <a
                       href="mailto:msnyd87@gmail.com"
                       className="text-slate-400 hover:text-blue-400 transition-colors duration-300"
                     >
@@ -449,7 +456,7 @@ export default function Portfolio() {
                   </div>
                   <div>
                     <p className="text-slate-300 font-semibold">Phone</p>
-                    <a 
+                    <a
                       href="tel:+13238443638"
                       className="text-slate-400 hover:text-blue-400 transition-colors duration-300"
                     >
@@ -499,7 +506,10 @@ export default function Portfolio() {
             <div className="bg-slate-800 p-8 rounded-xl border border-slate-700">
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-slate-300 mb-2">
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-medium text-slate-300 mb-2"
+                  >
                     Name
                   </label>
                   <Input
@@ -515,7 +525,10 @@ export default function Portfolio() {
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-slate-300 mb-2">
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-slate-300 mb-2"
+                  >
                     Email
                   </label>
                   <Input
@@ -531,7 +544,10 @@ export default function Portfolio() {
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-slate-300 mb-2">
+                  <label
+                    htmlFor="message"
+                    className="block text-sm font-medium text-slate-300 mb-2"
+                  >
                     Message
                   </label>
                   <Textarea
@@ -557,7 +573,8 @@ export default function Portfolio() {
                 {submitStatus === "error" && (
                   <div className="bg-red-500/20 border border-red-500/30 rounded-lg p-4">
                     <p className="text-red-400 text-sm">
-                      Something went wrong. Please try again or email me directly.
+                      Something went wrong. Please try again or email me
+                      directly.
                     </p>
                   </div>
                 )}
