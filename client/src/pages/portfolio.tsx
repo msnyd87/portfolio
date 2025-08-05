@@ -154,17 +154,17 @@ export default function Portfolio() {
     setSubmitStatus("idle");
 
     try {
+      const formDataToSend = new FormData();
+      formDataToSend.append('name', formData.name);
+      formDataToSend.append('email', formData.email);
+      formDataToSend.append('message', formData.message);
+      formDataToSend.append('_subject', 'New Portfolio Contact Form Submission');
+      formDataToSend.append('_captcha', 'false');
+      formDataToSend.append('_template', 'table');
+
       const response = await fetch("https://formsubmit.co/msnyd87@gmail.com", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...formData,
-          _subject: "New Portfolio Contact Form Submission",
-          _captcha: "false",
-          _template: "table",
-        }),
+        body: formDataToSend,
       });
 
       if (response.ok) {
