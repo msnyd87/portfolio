@@ -82,7 +82,7 @@ server/                         # Express backend
 shared/schema.ts               # TypeScript types and validation
 ```
 
-Most of the frontend is in one file (`portfolio.tsx`) to keep it simple.
+Most of the frontend is in one file (`portfolio.tsx`) to keep it simple
 
 ## Customizing
 
