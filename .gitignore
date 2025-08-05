@@ -77,3 +77,4 @@ temp/
 .replit
 replit.nix
 .config/
+.vercel
