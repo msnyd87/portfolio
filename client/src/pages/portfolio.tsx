@@ -398,6 +398,7 @@ export default function Portfolio() {
               variant="outline"
               className="border-blue-500 text-blue-400 px-8 py-3 rounded-lg font-semibold hover:bg-blue-500 hover:text-white transition-all duration-300"
               size="lg"
+              onClick={() => window.open("https://github.com/matthewsnyder263", "_blank")}
             >
               View All Projects
             </Button>

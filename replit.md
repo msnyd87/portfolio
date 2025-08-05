@@ -29,7 +29,7 @@ A responsive freelance developer portfolio website built with React/TypeScript a
 - Wants to showcase real projects and professional experience
 - Values clean, professional portfolio presentation
 
-## Recent Changes (August 4, 2025)
+## Recent Changes (August 4-5, 2025)
 - **Personal Information Updated**: Changed from Alex Chen to Matt Snyder with title "Full-Stack Developer"  
 - **Bio Updated**: Added Matt's authentic background story emphasizing his path from operational leadership and government service to software engineering, with mission to solve real-world problems
 - **GitHub Links Fixed**: All project links now point to actual GitHub repositories instead of portfolio URL
@@ -50,6 +50,12 @@ A responsive freelance developer portfolio website built with React/TypeScript a
 - **GitHub Deployment**: **COMPLETED** - Portfolio successfully deployed to https://matthewsnyder263.github.io/ with working FormSubmit.co contact integration (Updated Aug 4, 2025)
 - **Deployment Fix (Aug 4, 2025)**: Resolved git conflicts and 405 errors by creating clean HTML deployment with FormSubmit.co contact form, eliminating React build issues
 - **Replit Cleanup**: Removed all Replit-specific dependencies and references for clean deployment
+- **Vercel Migration (Aug 5, 2025)**: Migrated to Vercel for easier deployment with automatic GitHub integration
+  - Created serverless API structure (`api/contact.ts`) for contact form functionality
+  - Updated vercel.json configuration for Vite + serverless functions
+  - Integrated new Resend API key for reliable email delivery
+  - Fixed 404 API errors with proper Vercel function routing
+- **UI Enhancement (Aug 5, 2025)**: Updated "View All Projects" button to link directly to GitHub profile (https://github.com/matthewsnyder263)
 
 ## Architecture Notes
 - All projects link to Matt's actual GitHub repositories
