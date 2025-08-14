@@ -314,7 +314,7 @@ export default function Portfolio() {
                 <Github className="h-6 w-6" />
               </a>
               <a
-                href="https://linkedin.com/in/matthew-snyder-565662230"
+                href="www.https://linkedin.com/in/msnyd87/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-slate-400 hover:text-blue-400 text-2xl transition-colors duration-300"
