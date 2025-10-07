@@ -36,8 +36,8 @@ const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300",
     techStack: ["React", "FastAPI", "PostgreSQL", "JavaScript"],
-    projectUrl: "https://github.com/matthewsnyder263/type-halfway",
-    githubUrl: "https://github.com/matthewsnyder263/type-halfway",
+    projectUrl: "https://github.com/msnyd87/type-halfway",
+    githubUrl: "https://github.com/msnyd87/type-halfway",
   },
   {
     id: 2,
@@ -306,7 +306,7 @@ export default function Portfolio() {
 
             <div className="flex justify-center space-x-6 mt-12">
               <a
-                href="https://github.com/matthewsnyder263/"
+                href="https://github.com/msnyd87"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-slate-400 hover:text-blue-400 text-2xl transition-colors duration-300"
@@ -398,7 +398,7 @@ export default function Portfolio() {
               variant="outline"
               className="border-slate-600 bg-slate-100 text-slate-900 px-8 py-3 rounded-lg font-semibold hover:border-blue-400 hover:bg-blue-50 hover:text-blue-600 transition-all duration-300"
               size="lg"
-              onClick={() => window.open("https://github.com/matthewsnyder263", "_blank")}
+              onClick={() => window.open("https://github.com/msnyd87", "_blank")}
             >
               View All Projects
             </Button>
@@ -482,7 +482,7 @@ export default function Portfolio() {
                 </h4>
                 <div className="flex space-x-4">
                   <a
-                    href="https://github.com/matthewsnyder263"
+                    href="https://github.com/msnyd87"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="bg-slate-800 p-3 rounded-lg hover:bg-slate-700 transition-colors duration-300 group"
