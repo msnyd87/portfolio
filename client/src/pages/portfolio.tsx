@@ -490,7 +490,7 @@ export default function Portfolio() {
                     <Github className="h-6 w-6 text-slate-400 group-hover:text-blue-400" />
                   </a>
                   <a
-                    href="https://linkedin.com/in/matthewsnyder263"
+                    href="https://linkedin.com/in/msnyd87"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="bg-slate-800 p-3 rounded-lg hover:bg-slate-700 transition-colors duration-300 group"
